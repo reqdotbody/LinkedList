@@ -25,6 +25,7 @@
     "knex": "^0.8.6",
     "morgan": "^1.6.1",
     "passport": "^0.2.2",
+    "knex": "latest",
     "pg": "^4.4.0",
     "underscore": "^1.8.3"
   }
