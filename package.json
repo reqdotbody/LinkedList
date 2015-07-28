@@ -1,6 +1,6 @@
 {
   "name": "linkedlist",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Platform for dev-to-dev collaboration.",
   "main": "server.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CunningCoders/LinkedList.git"
+    "url": "git+https://github.com/reqdotbody/LinkedList"
   },
-  "author": "CunningCoders [https://github.com/CunningCoders]",
+  "author": "reqdotbody [https://github.com/reqdotbody]",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CunningCoders/LinkedList/issues"
+    "url": "https://github.com/reqdotbody/LinkedList/issues"
   },
-  "homepage": "https://github.com/CunningCoders/LinkedList#readme",
+  "homepage": "https://github.com/reqdotbody/LinkedList#readme",
   "dependencies": {
     "body-parser": "^1.13.2",
     "connect-flash": "^0.1.1",
