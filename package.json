@@ -4,7 +4,8 @@
   "description": "Platform for dev-to-dev collaboration.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
