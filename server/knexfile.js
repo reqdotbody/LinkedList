@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'pg://localhost/fount',
+      database: 'linked_list',
     },
     pool: {
       min: 2,
@@ -19,9 +19,7 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: {
-      database: 'pg://localhost/fount',
-    },
+    connection:'linked_list',
     pool: {
       min: 2,
       max: 10
