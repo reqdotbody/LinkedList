@@ -1,4 +1,5 @@
 # LinkedList
+<<<<<<< HEAD
 
 ##Setting up the Database Locally
 1. You'll need to make sure that you have postgres installed. (http://www.postgresql.org/)
@@ -14,4 +15,6 @@ Basic SQL terminal interaction keys for understanding your space immediately:
 "\connect mydatabase;" - connects to certain database
 "\dt;" - shows all tables in current database
 
+=======
+>>>>>>> parent of b83007b... Read Me Instructions
 
