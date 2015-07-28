@@ -11,8 +11,12 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 //Flash is the middleware that handles the messages such as "User not found" etc.
 var flash = require('connect-flash');
-var path = require('path')
-var db = require(path.join(__dirname+'/db/db.js')) 
+var path = require('path');
+
+var knexfile = require('./knexfile.js');
+var environment = 'development'
+var knex = require('knex')(knexfile[environment]);
+
   
   
 
