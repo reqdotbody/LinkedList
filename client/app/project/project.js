@@ -1,0 +1,1 @@
+// the view of a project you have clicked
