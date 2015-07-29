@@ -1,3 +1,27 @@
+@font-face {
+  font-family: neou;
+  src: url('./assets/neou.otf');
+} 
+
+#nav {
+  font-family: neou;
+  background-color: #ee725c;
+}
+
+.navbar .nav > li > a {
+	font-size: 20px;
+    color:  #e9e0d6;
+}
+
+.navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
+    background-color: #f35a41;
+}
+
+#logo {
+font-size: 30px;
+   color:  #354459;
+}
+
 body {
-	background: lightgray;
+  background-color: #1caba4;
 }
