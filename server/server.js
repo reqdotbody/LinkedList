@@ -26,9 +26,13 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
-app.use(session({secret: 'anystringoftext',
-         saveUninitialized: true,
-         resave: true}));
+
+app.use(session({
+  name: 'app:session',
+  secret: process.env.SESSION_SECRET || 'development',
+  secure: (!! process.env.SESSION_SECRET),
+  signed: true
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
