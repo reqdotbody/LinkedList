@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router'])
+angular.module('app', ['ui.router', 'app.newproject'])
 
 .controller("MainController", function($scope){
   
@@ -13,38 +13,42 @@ angular.module('app', ['ui.router'])
       abstract: true,
       views: {
         nav: {
-          templateUrl: '/main/nav.html',
+          templateUrl: './app/main/nav.html',
           controller: 'NavController as Nav'
-        }
+        },
+        // '': {
+        //   templateUrl: './app/main/main.html',
+        //   controller: 'MainController as Content'
+        // }
       }
+    })
+    .state('app.allprojects', {
+      url: '/all',
+      templateUrl: './app/main/allprojects.html',
+      controller: 'AllProjectsController'
     })
     .state('app.signup', {
       url: '/signup',
-      templateUrl: '/main/signup.html',
+      templateUrl: './app/main/signup.html',
       controller: 'SignupController'
     })
     .state('app.login', {
       url: '/login',
-      templateUrl: '/main/login.html',
+      templateUrl: './app/main/login.html',
       controller: 'LoginController'
     })
-    .state('app.logout', {
-      url: '/logout',
-      templateUrl: '/main/allprojects.html',
-      controller: 'AllProjectsController'
-    })
     .state('app.newproject', {
-      url: '/newproject',
+      url: './app/main/newproject',
       templateUrl: '/main/newproject.html',
       controller: 'NewProjectController'
     })
     .state('app.dashboard', {
-      url: '/dashboard',
+      url: './app/dashboard',
       templateUrl: '/dashboard/index.html',
       controller: 'DashboardController'
     })
     .state('app.project', {
-      url: '/project/{id}',
+      url: './app/project/{id}',
       templateUrl: '/project/index.html',
       controller: 'ProjectController'
     });
