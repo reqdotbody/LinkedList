@@ -5,26 +5,45 @@ angular.module('app', ['ui.router'])
   $urlRouterProvider.otherwise('/main');
 
   $stateProvider
-  .state('main', {
+  .state('app', {
     url: '/main',
+    views: {
+      'app.nav': {
+        templateUrl: './app/main/nav-partial.html',
+      },
+      '': {
+        templateUrl: './app/content.html'
+      }
+    }
   })
 
-  .state('main.list', {
-    url: '/list',
-    templateUrl: 'partial-main-list.html',
-    // controller: function($scope) {
-    //   $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
-    // }
+  .state('app.newproject', {
+    templateUrl: './app/main/newproject-partial.html'
   })
 
-  .state('main.paragraph', {
-    url: '/paragraph',
-    template: 'I could sure use a drink right now.'
+  .state('app.allprojects', {
+    templateUrl: './app/main/allprojects-partial.html'
   })
 
-  .state('newproject', {
-    url: '/newproject',
-    templateUrl: './main/newproject-partial.html'
-  });
+  .state('app.signup', {
+    templateUrl: './app/main/signup-partial.html'
+  })
 
+  .state('app.login', {
+    templateUrl: './app/main/login-partial.html'
+  })
+
+  .state('app.nav', {
+    templateUrl: './app/main/nav-partial.html'
+  })
+
+  .state('app.dashboard', {
+    url: '/dashboard',
+    templateUrl: './app/dashboard/index.html'
+  })
+
+  .state('app.project', {
+    url: '/project/{id}',
+    templateUrl: './app/project/index.html'
+  })
 });
