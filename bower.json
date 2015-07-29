@@ -19,7 +19,8 @@
   ],
   "dependencies": {
     "angular": "~1.4.3",
-    "bootstrap": "~3.3.5",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "materialize": "~0.97.0",
+    "angular-materialize": "*"
   }
 }
