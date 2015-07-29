@@ -8,9 +8,24 @@
 </head>
 <body ng-app="app">
 
+<<<<<<< HEAD
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand" ui-sref="#">LinkedList</a>
+=======
+      <nav class="text-center">
+        <div id='logo'>
+          <h3><a ui-sref='allprojects'>LinkedList</a></h3>
+        </div>
+        <a ui-sref='createJob'><button class="btn-primary">Create Job</button></a>
+        <a ui-sref='findJobs'><button class="btn-primary btn-success">Find Job</button></a>
+        <a ui-sref='profile'><button class="btn-primary btn-info">My Profile</button></a>
+        <a ui-sref='app.signup'>Signup</a>
+      </nav>
+
+      <div ui-view></div>
+      <footer class="footer"></footer>
+>>>>>>> stuff
     </div>
     <ul class="nav navbar-nav">
         <li><a ui-sref="home">Home</a></li>
