@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Linked List</title>
+  <title>Linked List</title>
     <script src="bower_components/angular/angular.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
 <!--<script src="app/app.js"></script>
-    <script src="app/createJob/createJob.ctrl.js"></script>
-    <script src="app/findJobs/findJobs.ctrl.js"></script>
-    <script src="app/jobDetails/jobDetails.ctrl.js"></script>
-    <script src="app/profile/profile.ctrl.js"></script>
-    <script src="app/homepage/homepage.ctrl.js"></script>-->
+<script src="app/createJob/createJob.ctrl.js"></script>
+<script src="app/findJobs/findJobs.ctrl.js"></script>
+<script src="app/jobDetails/jobDetails.ctrl.js"></script>
+<script src="app/profile/profile.ctrl.js"></script>
+<script src="app/homepage/homepage.ctrl.js"></script>-->
   </head>
   <body ng-app='app'>
     <div id="wrap">
-    <nav class="text-center">
+
+      <nav class="text-center">
         <div id='linkedlistlogo'>
-            <h3><a ui-sref='homepage'>LinkedList</a></h3>
+          <h3><a ui-sref='homepage'>LinkedList</a></h3>
         </div>
+
         <a ui-sref='createJob'> <button class="btn-primary"> Create Job</button></a>
         <a ui-sref='findJobs'> <button class="btn-primary btn-success">Find Job</button></a>
         <a ui-sref='profile'> <button class="btn-primary btn-info">My Profile</button></a>
-    </nav>
-    <div ui-view></div>
-    <footer class="footer"> </footer>
-  </div>
+      </nav>
+
+      <div ui-view></div>
+      <footer class="footer"></footer>
+    </div>
   </body>
 </html>

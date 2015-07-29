@@ -1,12 +1,14 @@
 {
-  "name": "linkedList",
-  "version": "1.0.0",
+  "name": "LinkedList",
+  "version": "2.0.0",
   "homepage": "https://github.com/reqdotbody/LinkedList",
   "authors": [
     "reqdotbody <https://github.com/reqdotbody>"
   ],
+  "moduleType": [
+    "node"
+  ],
   "description": "Platform for dev-to-dev collaboration.",
-  // "main": "app/app.js",
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -16,7 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-router": "~0.2.15",
-    "angular": "~1.4.3"
+    "angular": "~1.4.3",
+    "bootstrap": "~3.3.5"
   }
 }
