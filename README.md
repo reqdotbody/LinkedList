@@ -6,6 +6,7 @@
   a. You can do this from the app (http://postgresapp.com/)
   b. Or, you should be able to run "postgres -D /usr/local/var/postgres" to start up your server via the command line.
 3. You'll then need to start up the postgres (client) terminal interface. You can do this by running "psql" from the command line in another tab. 
+4. "CREATE DATABASE linked_list;"
 
 ####* HOT KEYS *#####
 Basic SQL terminal interaction keys for understanding your space immediately:
