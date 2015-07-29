@@ -17,8 +17,8 @@ var knexfile = require('./knexfile.js');
 var environment = 'development'
 var knex = require('knex')(knexfile[environment]);
 
-  
-  
+knex.migrate.latest([knexfile]);
+
 
 /**********************************************************
 This is MongoDB settings for testing - sub out for Postgres
