@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
 
   var user_update = knex.schema.table('users', function (table) {
