@@ -27,9 +27,12 @@ module.exports = function(app){
       //TODO - redirect new user to their projects (in failureRedirect & in here)
         //if they don't have projects, send them to the view projects page
         //if they do have a project, send them to their projects page
-
       res.redirect('/');
    });
+
+  app.get('/auth/isLoggedIn', function(req, res){
+    res.status(200).json(req.isAuthenticated());
+  })
 
   //////////////////////////////////////
   //                                  // 
@@ -55,10 +58,10 @@ module.exports = function(app){
   
   // GET REQUESTS
 
-  //Template
-  //app.post('< URL endpoint > ', <relevant handler. relevant method>);
+  // Template
+  // app.post('< URL endpoint > ', <relevant handler. relevant method>);
 
-  //Examples
+  // Examples
 
   // app.get('/tasks', taskHandler.getAll);
   // app.get('/taskInstances', taskHandler.getAllInstances);
