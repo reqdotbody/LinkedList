@@ -1,59 +1,62 @@
+//Import npm modules
 var express = require('express');
-var app = express();
-var port = 3000;
+var session = require('express-session');
 
-
-//SERVER HELPERS
-var morgan = require('morgan'); 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+
+var passport = require('passport');
+var GithubStrategy = require('passport-github').Strategy;
+
+var morgan = require('morgan'); 
+var flash = require('connect-flash');
 var path = require('path');
 
-//USER AUTH
-var session = require('express-session');
-var passport = require('passport');
-var flash = require('connect-flash');
+//Initialize the instance of express
+var app = express();
 
-//DATABASE
+//Import our app routes and auth config
+var routes = require('./routes.js');
+var passportConfig = require('./config/passport.js')(passport);
+var STATICFILES = path.join(process.env.PWD, '../bower_components');
+
+//Setup our database
 var knexfile = require('./knexfile.js');
 var environment = 'development'
 var knex = require('knex')(knexfile[environment]);
-
 knex.migrate.latest([knexfile]);
 
+//Configure express
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
-app.use(session({secret: 'anystringoftext',
-         saveUninitialized: true,
-         resave: true}));
+
+
+app.use(session({
+  name: 'app:session',
+  secret: process.env.SESSION_SECRET || 'monkey island',
+  secure: (!! process.env.SESSION_SECRET),
+  signed: true
+}));
 
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
-
-//Serve up the LinkedList page
+app.use(passport.session());
+app.use(flash()); 
 
 app.use(express.static('client'))
+app.use('/scripts', express.static(STATICFILES));
 
-//If the request contains 
-app.post('/jobs', function(req,res){
-  db.fetchJobs(req,res, function(results){
-    res.end(JSON.stringify(results));
-  })
-})
-app.post('/jobs/create', function (req, res) {
-  db.addJob(req.body, function(results){
-    res.end(JSON.stringify(results));
-    db.addUserJob(req.body.owner, req.body.title, req.body.status);
-  });
+// Writes all the routes to the server instance in the routes.js file
+routes(app);
+
+
+// Initiate the server
+var server = app.listen(process.env.PORT || 3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+
+
 });
-
-require('./app/routes.js')(app, passport);
-
-app.listen(port);
-console.log('Server running on port: ' + port);
-
-
-
