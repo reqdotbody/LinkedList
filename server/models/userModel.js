@@ -1,63 +1,44 @@
-//load in the database
-//var db = require('../db/db.js').db;
+var express = require('express');
+var router = express.Router();
+var session = require('express-session');
+var config = require('../knexfile.js');
+var env = process.env.NODE_ENV || 'development';
+var knex = require('knex')(config[env]);
 
 // USERMODEL FILE. Contains utility functions for all the db user get/requests
 
-exports.getByDwellingId = function(dwellingId, cb){
-
-  // Returns a dwelling row with the provided dwellingId
-  var queryString = "SELECT * FROM users WHERE dwelling_id = " + dwellingId + ";";
-  db.query(queryString, function(err, results){
-    console.log('Inside the users getByDwellingId Query');
-    err ? cb(err, null) : cb(null, results.rows)
-  });
+exports.findUserByGithubId = function(github_name, callback){
+  console.log("Inside the findUserByGithubId query");
+  knex('users')
+    .where('name', github_name)
+    .then(function(items){
+      console.log("You did it.")
+      console.log(items);
+      //if the user exists, send it back
+      if(items.length > 0){
+        console.log("oh ya bebe");
+        callback(null, items);
+      } 
+      callback(null);
+      //otherwise send nothing
+    })
+    .catch(function(err){
+      console.log("you suck - jk!")
+      console.log(err);
+    });
 }
 
-exports.addFacebookUser = function(user, cb){
-
-  // addFacebookUser : insert a new user row. Called by Passport.js
-  var queryString = "INSERT INTO users (facebook_id, picture, gender, username) VALUES ("
-                     + "'" + user.facebook_id + "', "
-                     + "'" + user.picture + "', "
-                     + "'" + user.gender + "', "
-                     // + "'" + user.facebook_token + "', "
-                     + "'" + user.username + "') RETURNING id;";
-
-  console.log('queryString: ', queryString)
-  db.query(queryString, function(err, results){
-    console.log("Inside the POST Query callback");
-    err ? cb(err, null) : cb(null, results.rows[0]);
-  });
-}
-
-exports.updateDwellingId = function(userId, dwellingId, cb) {
-
-  // Sets the dwelling_id of a provided user (w/ a provided userId)
-  var queryString = "UPDATE users SET dwelling_id = " + dwellingId +
-                    " WHERE id = " + userId + ";";
-  db.query(queryString, function(err, results) {
-    err ? cb(err, null) : cb(null, results);
-  })
-}
-
-exports.findUserById = function(id, cb){
-
-  // findUser : queries the database w/ the provided userId and returns the row
-  console.log('Inside the users find query');
-  var queryString = "SELECT * FROM users WHERE id = " + "'" + id + "';";
-  db.query(queryString, function(err, results){
-    // console.log('findUser: ', results)
-    err ? cb(err, null) : cb(null, results.rows[0]);
-  });
-}
-
-exports.findUserByFacebookId = function(id, cb){
-
-  // findUserByFacebookId : provides a facebookId and returns the row
-  console.log('Inside the users find query');
-  var queryString = "SELECT * FROM users WHERE facebook_id = " + "'" + id + "';";
-  db.query(queryString, function(err, results){
-    // console.log('findUser: ', results)
-    err ? cb(err, null) : cb(null, results.rows[0]);
-  });
+exports.addGithubUser = function(newUser, callback){
+  console.log("Inside the addGithubUser query");
+  //TODO -- when the DB is updated to include, image, insert it too.
+  knex('users')
+    .insert({
+      name: newUser.github_name
+    })
+    .then(function(insertedUser){
+      callback(null, insertedUser);
+    })
+    .catch(function(err){
+      callback(err, null);
+    })
 }
