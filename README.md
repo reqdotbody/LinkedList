@@ -10,7 +10,7 @@
 
 ####* HOT KEYS *#####
 Basic SQL terminal interaction keys for understanding your space immediately:
-"CREATE DATABASE mydatabase;" - creates new database
+"CREATE DATABASE linked_list;" - creates new database of the name "linked_list"
 "\list" - lists all databases 
 "\connect mydatabase;" - connects to certain database
 "\dt;" - shows all tables in current database
