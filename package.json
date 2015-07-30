@@ -28,6 +28,7 @@
     "morgan": "^1.6.1",
     "nodemon": "^1.4.0",
     "passport": "^0.2.2",
+    "passport-github": "^0.1.5",
     "passport-github2": "^0.1.9",
     "pg": "^4.4.0",
     "underscore": "^1.8.3"
