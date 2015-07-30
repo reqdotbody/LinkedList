@@ -22,7 +22,7 @@ var STATICFILES = path.join(process.env.PWD, '../bower_components');
 
 //Setup our database
 var knexfile = require('./knexfile.js');
-var environment = 'development'
+var environment = process.env.NODE_ENV || 'development';
 var knex = require('knex')(knexfile[environment]);
 knex.migrate.latest([knexfile]);
 
