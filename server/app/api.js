@@ -92,8 +92,8 @@ router.get('/v1/projects/all/expired', function(req, res, next) {
 	knex.select('*')
 		.from('projects')
 		.where(function() {
-			this.where('created_at', '>', '.defaultTo(knex.raw('now()'))', 'interval 1 day')
-			.andWhere('helper_id', '=', 'null')
+			this.where('created_at', '>', knex.defaultTo(knex.raw('now()')), 'interval 1 day')
+			.andWhere('helper_id', '=', 'NULL')
 		})
 		.del()
 		.then(function(items) {
