@@ -10,7 +10,6 @@ var knex = require('knex')(config[env]);
 router.post('/v1/submit/project', function(req, res, next) {
 	knex('projects')
 		.insert({
-			name: req.body.name,
 			owner_id: req.session.ownerID,
 			prompt_id: req.body.prompt_id,
 			framework_id: req.body.framework_id
@@ -26,11 +25,12 @@ router.post('/v1/submit/project', function(req, res, next) {
 
 //GET request to retrieve all available projects
 router.get('/v1/projects/all/current', function(req, res, next) {
-	knex.select('id', 'name', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'users.name', 'frameworks.name', 'prompts.name', 'prompts.description')
+	knex.select('id', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'users.github_id', 'users.github_username', 
+		'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
 		.join('users', function() {
 			this
-			.on('projects.owner_id', '=', 'users.user_id')
+			.on('projects.owner_id', '=', 'users.id')
 			.on('projects.helper_id', '=', 'NULL');
 		})
 		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
@@ -46,12 +46,13 @@ router.get('/v1/projects/all/current', function(req, res, next) {
 
 //GET request to retrieve all completed projects
 router.get('/v1/projects/all/completed', function(req, res, next) {
-	knex.select('id', 'name', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'users.name', 'frameworks.name', 'prompts.name', 'prompts.description')
+	knex.select('id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'users.github_id', 'users.github_username', 
+		'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
 		.join('users', function() {
 			this
-			.on('projects.owner_id', '=', 'users.user_id')
-			.on('projects.helper_id', '=', 'users.user_id');
+			.on('users.id AS ownerId', '=', 'projects.owner_id')
+			.on('users.id AS helperId', '=', 'projects.helper_id');
 		})
 		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
 		.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
@@ -131,6 +132,26 @@ router.get('/v1/projects/all/expired', function(req, res, next) {
 			.andWhere('helper_id', '=', 'NULL')
 		})
 		.del()
+		.then(function(items) {
+			res.json(items)
+		})
+		.catch(function(err) {
+			console.error(err);
+			res.json(err)
+		})
+})
+
+//GET request to retrieve all the projects associated with a specific user
+router.get('/v1/projects/user', function(req, res, next) {
+		knex.select('id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'users.github_id', 'users.github_username', 
+			'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
+		.from('projects')
+		.join('users', function() {
+			this.on('users.id AS ownerId', '=', 'projects.owner_id')
+			.orOn('users.id AS helperId', '=', 'projects.helper_id')
+		})
+		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
+		.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
 		.then(function(items) {
 			res.json(items)
 		})
