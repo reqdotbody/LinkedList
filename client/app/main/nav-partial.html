@@ -26,10 +26,17 @@
   <div class="nav-wrapper">
     <a href="#" class="logo">LINKED LIST</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
+<<<<<<< HEAD
       <li><a ui-sref="app.allprojects"><i class="material-icons">home</i></a></li>
       <li><a ui-sref="app.dashboard"><i class="material-icons">person</i></a></li>
       <li><a ui-sref="app.login"><i class="material-icons">person_outline</i></a></li>
       <li><a class='modal-trigger secondary-content' href='#helpmodal' modal><i class="material-icons">help_outline</i></a></li>
+=======
+      <li><a ui-sref="app.allprojects">Projects</a></li>
+      <li ng-show='isAuth()'><a ui-sref="app.dashboard">Dashboard</a></li>
+      <li ng-hide='isAuth()'><a ui-sref="app.login">Login</a></li>
+      <li><h1>{{test}}</h1></li>
+>>>>>>> Built auth factory and nav controller. Still buggy.
     </ul>
   </div>
 </nav>
