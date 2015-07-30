@@ -87,6 +87,25 @@ router.get('/v1/frameworks', function(req, res, next) {
 		})
 })
 
+//GET request to remove projects that have been available for over 24 hours and have no helper assigned
+router.get('/v1/projects/all/expired', function(req, res, next) {
+	knex.select('*')
+		.from('projects')
+		.where(function() {
+			this.where('created_at', '>', '.defaultTo(knex.raw('now()'))', 'interval 1 day')
+			.andWhere('helper_id', '=', 'null')
+		})
+		.del()
+		.then(function(items) {
+			res.json(items)
+		})
+		.catch(function(err) {
+			console.error(err);
+			res.json(err)
+		})
+})
+
 module.exports = router;
+
 
 
