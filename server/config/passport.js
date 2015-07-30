@@ -50,7 +50,7 @@ module.exports = function(passport) {
 	   process.nextTick(function () {
 
 	  	console.log("We got a token back..."); 
-	  	console.log(profile.login);
+	  	console.log(profile._json.login);
 	  	console.log(profile._json.avatar_url);
 	
 	  	return done(null, profile);
