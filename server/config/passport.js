@@ -19,9 +19,9 @@ module.exports = function(passport) {
 
 	// used to deserialize the user
 	// this happens on every request so we know which user is logged in.
-	passport.deserializeUser(function(github_name, done){
+	passport.deserializeUser(function(github_id, done){
 		console.log("in deserialize")
-		User.findUserByGithubId(github_name, function(err, user) {
+		User.findUserByGithubId(github_id, function(err, user) {
 		  // if user is found within sessions, they can proceed with request
 		  // if not, returns error
 		  return user ? done(null, user) : done(err, null);
@@ -46,18 +46,18 @@ module.exports = function(passport) {
 	   // asynchronous verification, for effect...
 	   process.nextTick(function () {
 
-	  	console.log("Github sent us an access token, refresh token, and profile");
-	  	console.log("access token:");
-	  	console.log(accessToken);
-	  	console.log("refresh token:");
-	  	console.log(refreshToken);
-	  	console.log("profile:");
-	  	console.log(profile);
+	  	// console.log("Github sent us an access token, refresh token, and profile");
+	  	// console.log("access token:");
+	  	// console.log(accessToken);
+	  	// console.log("refresh token:");
+	  	// console.log(refreshToken);
+	  	// console.log("profile:");
+	  	// console.log(profile);
 
 	  	//Save the profile's username to search through the database with
-	  	var github_name  = profile._json.login;
+	  	var github_id  = profile.id;
 			
-			User.findUserByGithubId(github_name, function(err, user){
+			User.findUserByGithubId(github_id, function(err, user){
 				//if there's an error, stop everything and return that
 				//i.e. an error connecting to the database
 				if(err){
@@ -79,8 +79,14 @@ module.exports = function(passport) {
 
 					var newUser = {};
 
-					newUser.github_name = profile._json.login;
-					newUser.github_img = profile._json.avatar_url;
+					newUser.gihub_id           =   profile.id;               //integer
+					newUser.github_username    =   profile.username;         //string 
+					newUser.github_displayName =   profile.displayName;      //string
+					newUser.github_img         =   profile._json.avatar_url; //string
+					newUser.gihub_email        =   profile.emails[0].value;  //string
+					newUser.github_location 	 =   profile._json.location;   //string
+					newUser.github_url         =   profile._json.html_url;   //string
+
 
 					//save new user to the database
 					User.addGithubUser(newUser, function(err, results){

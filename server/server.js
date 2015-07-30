@@ -23,7 +23,7 @@ var passportConfig = require('./config/passport.js')(passport);
 var knexfile = require('./knexfile.js');
 var environment = 'development'
 var knex = require('knex')(knexfile[environment]);
-knex.migrate.latest([knexfile]);
+//knex.migrate.latest([knexfile]);
 
 //Configure express
 app.use(morgan('dev'));
@@ -41,9 +41,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 app.use(flash()); 
+
 app.use(express.static('client'))
 
 // Writes all the routes to the server instance in the routes.js file
