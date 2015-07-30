@@ -19,9 +19,9 @@ module.exports = function(passport) {
 
 	// used to deserialize the user
 	// this happens on every request so we know which user is logged in.
-	passport.deserializeUser(function(github_id, done){
+	passport.deserializeUser(function(user, done){
 		console.log("in deserialize")
-		User.findUserByGithubId(github_id, function(err, user) {
+		User.findUserByGithubId(user.github_id, function(err, user) {
 		  // if user is found within sessions, they can proceed with request
 		  // if not, returns error
 		  return user ? done(null, user) : done(err, null);
@@ -79,7 +79,7 @@ module.exports = function(passport) {
 
 					var newUser = {};
 
-					newUser.gihub_id           =   profile.id;               //integer
+					newUser.github_id          =   profile.id;               //integer
 					newUser.github_username    =   profile.username;         //string 
 					newUser.github_displayName =   profile.displayName;      //string
 					newUser.github_img         =   profile._json.avatar_url; //string

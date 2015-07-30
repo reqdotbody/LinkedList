@@ -9,8 +9,11 @@ var knex = require('knex')(config[env]);
 
 exports.findUserByGithubId = function(github_id, callback){
   console.log("Inside the findUserByGithubId query");
+  console.log(github_id);
+  console.log("^github_id");
   knex('users')
     .where('github_id', github_id)
+    .select('github_id')
     .then(function(items){
       console.log("You did it.")
       console.log(items);

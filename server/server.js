@@ -18,12 +18,13 @@ var app = express();
 //Import our app routes and auth config
 var routes = require('./routes.js');
 var passportConfig = require('./config/passport.js')(passport);
+var STATICFILES = path.join(process.env.PWD, '../bower_components');
 
 //Setup our database
 var knexfile = require('./knexfile.js');
 var environment = 'development'
 var knex = require('knex')(knexfile[environment]);
-//knex.migrate.latest([knexfile]);
+knex.migrate.latest([knexfile]);
 
 //Configure express
 app.use(morgan('dev'));
@@ -44,6 +45,7 @@ app.use(passport.session());
 app.use(flash()); 
 
 app.use(express.static('client'))
+app.use('/scripts', express.static(STATICFILES));
 
 // Writes all the routes to the server instance in the routes.js file
 routes(app);
