@@ -1,18 +1,39 @@
-<ul class="collection">
-    <li class="collection-item avatar">
-      <img src="https://avatars2.githubusercontent.com/u/7542614?v=3&s=460" alt="" class="circle">
-      <span class="title">Web Historian</span>
-      <p>Backbone <br>
-         4 days
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">view</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars3.githubusercontent.com/u/1243451?v=3&s=460" alt="" class="circle">
-      <span class="title">To-Do App</span>
-      <p>Backbone <br>
-         1 week
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">view</i></a>
-    </li>
-  </ul>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+
+  $('.modal-trigger').leanModal();
+</script>
+
+<!-- Modal Structure -->
+<div id="demoModal" class="modal">
+    <div class="modal-content">
+        <h4>Modal header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-light">Agree</a>
+    </div>
+</div>
+
+<ul class="collection z-depth-2">
+  <li class="collection-item avatar">
+    <img src="https://avatars2.githubusercontent.com/u/7542614?v=3&s=460" alt="" class="circle">
+    <span class="title">Web Historian</span>
+    <p>Backbone <br>
+       4 days
+    </p>
+    <a class='modal-trigger waves-effect waves-circle waves-light btn-floating secondary-content' href='#demoModal' modal>></a>
+  </li>
+  <li class="collection-item avatar">
+    <img src="https://avatars3.githubusercontent.com/u/1243451?v=3&s=460" alt="" class="circle">
+    <span class="title">To-Do App</span>
+    <p>Backbone <br>
+       1 week
+    </p>
+    <a class='modal-trigger waves-effect waves-circle waves-light btn-floating secondary-content' href='#demoModal' modal>></a>
+  </li>
+</ul>
