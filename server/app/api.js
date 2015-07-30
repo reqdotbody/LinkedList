@@ -25,7 +25,7 @@ router.post('/v1/submit/project', function(req, res, next) {
 
 //GET request to retrieve all available projects
 router.get('/v1/projects/all/current', function(req, res, next) {
-	knex.select('id', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'users.github_id', 'users.github_username', 
+	knex.select('id', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_id', 'users.github_username', 
 		'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
 		.join('users', function() {
@@ -46,7 +46,7 @@ router.get('/v1/projects/all/current', function(req, res, next) {
 
 //GET request to retrieve all completed projects
 router.get('/v1/projects/all/completed', function(req, res, next) {
-	knex.select('id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'users.github_id', 'users.github_username', 
+	knex.select('id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'created at', 'duration', 'users.github_id', 'users.github_username', 
 		'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
 		.join('users', function() {
@@ -143,7 +143,7 @@ router.get('/v1/projects/all/expired', function(req, res, next) {
 
 //GET request to retrieve all the projects associated with a specific user
 router.get('/v1/projects/user', function(req, res, next) {
-		knex.select('id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'users.github_id', 'users.github_username', 
+		knex.select('id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_id', 'users.github_username', 
 			'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
 		.join('users', function() {
