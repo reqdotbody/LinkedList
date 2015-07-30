@@ -1,5 +1,6 @@
 // login view (nested within index.js, it should completely replace all other views except for navigation bar)
 
+/auth/github
 
 routerApp.controller('scotchController', function($scope) {
     

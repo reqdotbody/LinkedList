@@ -53,3 +53,8 @@ body {
   width: auto;
   display: inline-block;
 }
+
+/*login*/
+.login {
+  padding:5%;
+}
