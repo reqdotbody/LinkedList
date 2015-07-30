@@ -1,12 +1,20 @@
 //Import npm modules
 var express = require('express');
+var session = require('express-session');
+
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
+
 var passport = require('passport');
+var GithubStrategy = require('passport-github').Strategy;
+
 var morgan = require('morgan'); 
 var flash = require('connect-flash');
 var path = require('path');
+
+//Initialize the instance of express
+var app = express();
+
 
 //Import our app routes and auth config
 var routes = require('./routes.js');
@@ -18,24 +26,24 @@ var environment = 'development'
 var knex = require('knex')(knexfile[environment]);
 knex.migrate.latest([knexfile]);
 
-//Initialize the instance of express
-var app = express();
-
 //Configure express
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
 
+
 app.use(session({
   name: 'app:session',
-  secret: process.env.SESSION_SECRET || 'development',
+  secret: process.env.SESSION_SECRET || 'monkey island',
   secure: (!! process.env.SESSION_SECRET),
   signed: true
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 app.use(flash()); 
 app.use(express.static('client'))
 
