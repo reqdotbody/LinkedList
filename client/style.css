@@ -1,0 +1,55 @@
+/*general styling + index*/
+@font-face {
+  font-family: Roboto-Thin;
+  src: url(./app/assets/Roboto-Thin.ttf);
+}
+
+html {
+  font-family: Roboto-Thin;
+}
+
+body {
+  background-color: #d5d5d5;
+}
+
+.content-wrapper {
+  width: 80%;
+  padding-top: 5%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*navigation bar*/
+.logo {
+  padding-left: 10px;
+  font-family: Roboto-Thin;
+  font-size: 30px;
+  color: #35fff5;
+}
+
+.nav-wrapper {
+  background-color: #ed715c;
+  font-family: Roboto-Thin;
+  font-size: 20px;
+  color: red;
+}
+
+#nav-mobile > li > a {
+    color: #fff;
+}
+
+/* #nav-mobile > li > a:hover, .navbar .nav > li > a:focus {
+    color: #ffc426;
+} */
+
+/*newproject*/
+.form-wrapper {
+  padding: 5px;
+}
+
+#form {
+  font-size: 14px;
+  width: auto;
+  display: inline-block;
+}
