@@ -29,8 +29,8 @@ exports.up = function(knex, Promise) {
     var projects = knex.schema.createTable('projects', function(table){
       table.increments('id').primary();
       table.string('name');
-      table.integer('owner_id').references('id').inTable('users')
-      table.integer('helper_id').references('id').inTable('users')
+      table.integer('owner_id').references('id').inTable('users');
+      table.integer('helper_id').references('id').inTable('users');
       table.integer('prompt_id').references('id').inTable('prompts');
       table.integer('framework_id').references('id').inTable('frameworks');
       table.timestamp('created_at');
