@@ -1,4 +1,4 @@
-/*general styling + index*/
+/* general styling + index */
 @font-face {
   font-family: Roboto-Thin;
   src: url(./app/assets/Roboto-Thin.ttf);
@@ -25,7 +25,7 @@ body {
   margin-right: auto;
 }
 
-/*navigation bar*/
+/* navigation bar */
 .logo {
   padding-left: 10px;
   font-family: Roboto-Thin;
@@ -45,11 +45,11 @@ body {
   color: #fff;
 }
 
-/* #nav-mobile > li > a:hover, .navbar .nav > li > a:focus {
-    color: #ffc426;
-} */
+#nav-mobile > li > a:hover {
+    color: #35fff5;
+} 
 
-/*allprojects*/
+/* allprojects */
 .openprojects-header {
   position: absolute;
   font-family: Roboto-Thin;
@@ -70,4 +70,22 @@ body {
   display: center;
 }
 
-/*login*/
+/* login */
+.login {
+  background-color: #fff;
+  margin: auto;
+  width: 40%;
+  padding: 2%;
+}
+
+.github {
+  padding: 2%;
+}
+
+.joingithub {
+  padding: 2%;
+}
+
+.joingithublink {
+  color: teal;
+}
