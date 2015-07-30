@@ -1,5 +1,5 @@
 var passport = require('passport');
-var GitHubStrategy = require('passport-github2').Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
 var dashboardHandler = require('./requestHandlers/dashboardHandler.js');
 var mainHandler = require('./requestHandlers/mainHandler.js');
 var projectHandler = require('./requestHandlers/projectHandler.js');
@@ -12,21 +12,14 @@ module.exports = function(app){
   // Github Auth Routes
   app.get('/auth/github', 
     passport.authenticate('github', { display: 'popup' }, function(req, res){
-    console.log(req);
-    console.log(res);
-    console.log("PAPR");
   }));
   
   console.log("routes.js 2");
   
   app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: 'www.google.com' }),
+    passport.authenticate('github', { failureRedirect: '/login' }),
     function (req, res) {
       //TODO - redirect new user to the right place
-
-      console.log("YA ROUTES.JS");
-      console.log(req);  
-      console.log(res);
 
       res.redirect('/');
       
