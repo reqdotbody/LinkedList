@@ -2,31 +2,24 @@ var express = require('express');
 var app = express();
 var port = 3000;
 
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-// var mongoose = require('mongoose')
-//Morgan logs http request to the console - this was pretty handy in debugging
+
+//SERVER HELPERS
 var morgan = require('morgan'); 
 var bodyParser = require('body-parser');
-var passport = require('passport');
-//Flash is the middleware that handles the messages such as "User not found" etc.
-var flash = require('connect-flash');
+var cookieParser = require('cookie-parser');
 var path = require('path');
 
+//USER AUTH
+var session = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash');
+
+//DATABASE
 var knexfile = require('./knexfile.js');
 var environment = 'development'
 var knex = require('knex')(knexfile[environment]);
 
 knex.migrate.latest([knexfile]);
-
-
-/**********************************************************
-This is MongoDB settings for testing - sub out for Postgres
-**********************************************************/
-
-// var configDB = require('./config/database.js');
-// mongoose.connect(configDB.url);
-// require('./config/passport')(passport);
 
 app.use(morgan('dev'));
 app.use(cookieParser());
