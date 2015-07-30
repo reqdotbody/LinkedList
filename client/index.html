@@ -1,44 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./style.css">
-  <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
-</head>
-<body ng-app="app">
-
-<<<<<<< HEAD
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" ui-sref="#">LinkedList</a>
-=======
-      <nav class="text-center">
-        <div id='logo'>
-          <h3><a ui-sref='allprojects'>LinkedList</a></h3>
-        </div>
-        <a ui-sref='createJob'><button class="btn-primary">Create Job</button></a>
-        <a ui-sref='findJobs'><button class="btn-primary btn-success">Find Job</button></a>
-        <a ui-sref='profile'><button class="btn-primary btn-info">My Profile</button></a>
-        <a ui-sref='app.signup'>Signup</a>
-      </nav>
-
+  <head>
+    <link type="text/css" rel="stylesheet" href="./style.css">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+  </head>
+  <body ng-app="app">
+    <div ui-view="app.nav"></div>
+    <div class="content-wrapper">
       <div ui-view></div>
-      <footer class="footer"></footer>
->>>>>>> stuff
     </div>
-    <ul class="nav navbar-nav">
-        <li><a ui-sref="home">Home</a></li>
-        <li><a ui-sref="newproject">New Project</a></li>
-    </ul>
-</nav>
-
-<div class="container">
-    <div ui-view></div>
-</div>
-
-</body>
-<footer>
-<script src="app.js"></script>
-</footer>
+  </body>
+  <footer>
+    <script src="app.js"></script>
+    <script src="app/content.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+  </footer>
 </html>
