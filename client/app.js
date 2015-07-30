@@ -38,12 +38,10 @@ angular.module('app', ['ui.router'])
   })
 
   .state('app.dashboard', {
-    url: '/dashboard',
-    templateUrl: './app/dashboard/index.html'
+    templateUrl: './app/main/dashboard-partial.html'
   })
 
   .state('app.project', {
-    url: '/project/{id}',
-    templateUrl: './app/project/index.html'
+    templateUrl: './app/main/project-partial.html'
   })
 });
