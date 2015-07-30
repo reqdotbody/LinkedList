@@ -15,7 +15,6 @@ var path = require('path');
 //Initialize the instance of express
 var app = express();
 
-
 //Import our app routes and auth config
 var routes = require('./routes.js');
 var passportConfig = require('./config/passport.js')(passport);

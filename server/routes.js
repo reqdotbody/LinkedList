@@ -9,23 +9,36 @@ module.exports = function(app){
   // This routes module is exporting a function that will decorate the app (express server instance)
   // with routes.
   console.log("routes.js");
-  // Github Auth Routes
+
+  //////////////////////////////////////
+  //                                  // 
+  //   GITHUB AUTHENTICATION ROUTES   //  
+  //                                  //
+  //////////////////////////////////////
+
   app.get('/auth/github', 
     passport.authenticate('github', { display: 'popup' }, function(req, res){
   }));
   
-  console.log("routes.js 2");
   
   app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function (req, res) {
-      //TODO - redirect new user to the right place
+      //TODO - redirect new user to their projects (in failureRedirect & in here)
+        //if they don't have projects, send them to the view projects page
+        //if they do have a project, send them to their projects page
 
       res.redirect('/');
-      
-
    });
 
+  //////////////////////////////////////
+  //                                  // 
+  //   ALL OTHER ROUTES               //  
+  //                                  //
+  //////////////////////////////////////
+
+  //TODO -- once we have the routes working off of api.js, refactor the following pattern.
+  
   // BASIC ROUTING ----------------------------------
   //POST Requests
 

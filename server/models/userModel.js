@@ -23,7 +23,7 @@ exports.findUserByGithubId = function(github_name, callback){
       //otherwise send nothing
     })
     .catch(function(err){
-      console.log("you suck - jk!")
+      console.log("you got an error in findUserByGithubId")
       console.log(err);
     });
 }
