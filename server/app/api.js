@@ -7,7 +7,7 @@ var knex = require('knex')(config[env]);
 
 
 //POST request to create a project
-router.post('/v1/submit', function(req, res, next) {
+router.post('/v1/submit/project', function(req, res, next) {
 	knex('projects')
 		.insert({
 			name: req.body.name,
@@ -25,11 +25,14 @@ router.post('/v1/submit', function(req, res, next) {
 });
 
 //GET request to retrieve all available projects
-//Possibly use a CRON job to pull all projects created in the last 24 hours?
 router.get('/v1/projects/all/current', function(req, res, next) {
 	knex.select('id', 'name', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'users.name', 'frameworks.name', 'prompts.name', 'prompts.description')
 		.from('projects')
-		.join('users', 'projects.owner_id', '=', 'users.user_id')
+		.join('users', function() {
+			this
+			.on('projects.owner_id', '=', 'users.user_id')
+			.on('projects.helper_id', '=', 'NULL');
+		})
 		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
 		.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
 		.then(function(items) {
@@ -74,15 +77,47 @@ router.get('/v1/prompts', function(req, res, next) {
 		})
 })
 
+//POST request to create a new prompt
+router.post('/v1/submit/prompt', function(req, res, next) {
+	knex('prompts')
+		.insert({
+			name: req.body.name,
+			description: req.body.description
+		})
+		.then(function(inserts) {
+			res.json(inserts)
+		})
+		.catch(function(err) {
+			console.error(err);
+			res.json(err)
+		})
+})
+
 //GET request to retrieve all available frameworks
 router.get('/v1/frameworks', function(req, res, next) {
 	knex.select('id', 'name', 'link')
 		.from('frameworks')
-		.then(function(items) {
-			res.json(items)
+		.then(function(inserts) {
+			res.json(inserts)
 		})
 		.catch(function(err) {
 			console.error(err);
+			res.json(err)
+		})
+})
+
+//POST request to create a new framework
+router.post('v1/submit/framework' function(req, res, next) {
+	knex('frameworks')
+		.insert({
+			name: req.body.name,
+			link: req.body.link
+		})
+		.then(function(inserts) {
+			res.json(inserts)
+		})
+		.catch(function(err) {
+			console.error(err)
 			res.json(err)
 		})
 })
