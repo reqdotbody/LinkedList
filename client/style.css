@@ -4,8 +4,13 @@
   src: url(./app/assets/Roboto-Thin.ttf);
 }
 
-html {
-  font-family: Roboto-Thin;
+@font-face {
+  font-family: Roboto-Light;
+  src: url(./app/assets/Roboto-Light.ttf);
+}
+
+* {
+  font-family: Roboto-Light;
 }
 
 body {
@@ -13,7 +18,7 @@ body {
 }
 
 .content-wrapper {
-  width: 80%;
+  width: 60%;
   padding-top: 5%;
   display: block;
   margin-left: auto;
@@ -36,16 +41,23 @@ body {
 }
 
 #nav-mobile > li > a {
-    color: #fff;
+  font-family: Roboto-Thin;
+  color: #fff;
 }
 
 /* #nav-mobile > li > a:hover, .navbar .nav > li > a:focus {
     color: #ffc426;
 } */
 
-/*newproject*/
+/*allprojects*/
+.openprojects-header {
+  position: absolute;
+  font-family: Roboto-Thin;
+  font-size: 30px;
+}
+
 .form-wrapper {
-  padding: 5px;
+  padding: 0;
 }
 
 #form {
@@ -54,7 +66,8 @@ body {
   display: inline-block;
 }
 
-/*login*/
-.login {
-  padding:5%;
+.allprojects-wrapper {
+  display: center;
 }
+
+/*login*/

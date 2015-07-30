@@ -17,18 +17,10 @@ angular.module('app', ['ui.router'])
     }
   })
 
-  .state('app.newproject', {
-    templateUrl: './app/main/newproject-partial.html'
-  })
-
   .state('app.allprojects', {
     templateUrl: './app/main/allprojects-partial.html'
   })
-
-  .state('app.signup', {
-    templateUrl: './app/main/signup-partial.html'
-  })
-
+  
   .state('app.login', {
     templateUrl: './app/main/login-partial.html'
   })
@@ -39,9 +31,5 @@ angular.module('app', ['ui.router'])
 
   .state('app.dashboard', {
     templateUrl: './app/main/dashboard-partial.html'
-  })
-
-  .state('app.project', {
-    templateUrl: './app/main/project-partial.html'
   })
 });
