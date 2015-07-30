@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router'])
+angular.module('app', ['ui.router','allprojects'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -18,7 +18,8 @@ angular.module('app', ['ui.router'])
   })
 
   .state('app.allprojects', {
-    templateUrl: './app/main/allprojects-partial.html'
+    templateUrl: './app/main/allprojects-partial.html',
+    controller: 'AllProjectsController'
   })
   
   .state('app.login', {

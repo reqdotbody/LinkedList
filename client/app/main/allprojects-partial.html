@@ -1,19 +1,24 @@
 <div class="openprojects-header" align="left">OPEN PROJECTS</div>
 
-<div class="form-wrapper" align="right">
-  <select class="browser-default" id="form">
-  <option value="" disabled selected>start your own project</option>
-  <option value="1">To-do app</option>
-  <option value="2">Twitter client</option>
+<div class="input-field" align="right">
+
+  <select class="" ng-model="selectedChoices" material-select watch>
+      <option ng-repeat="choice in choices" value="{{choice}}">{{choice}}</option>
   </select>
 
-  <select class="browser-default" id="form">
+  <select id="form">
+      <option value="" disabled selected>Choose your option</option>
+      <option value="1">To-do app</option>
+      <option value="2">Twitter client</option>
+  </select>
+
+  <select class="" id="form">
   <option value="" disabled selected>pick a framework</option>
   <option value="1">Angular</option>
   <option value="2">Backbone</option>
   </select>
 
-  <select class="browser-default" id="form">
+  <select class="" id="form">
   <option value="" disabled selected>for how long?</option>
   <option value="1">2 days</option>
   <option value="3">4 days</option>
@@ -26,85 +31,15 @@
   </button>
 </div>
 
-<div class="allprojects-wrapper">
+
+
+<div class="allprojects-wrapper" >
   <ul class="collection">
-    <li class="collection-item avatar">
-      <img src="https://avatars3.githubusercontent.com/u/6374974?v=3&s=460" alt="" class="circle">
-      <span class="title">To-Do App</span>
-      <p>Angular <br>
-         2 days
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars1.githubusercontent.com/u/11216691?v=3&s=460" alt="" class="circle">
-      <span class="title">Twitter client</span>
-      <p>Mithril <br>
-         1 week
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars2.githubusercontent.com/u/7542614?v=3&s=460" alt="" class="circle">
-      <span class="title">Web Historian</span>
-      <p>Backbone <br>
-         4 days
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars3.githubusercontent.com/u/1243451?v=3&s=460" alt="" class="circle">
-      <span class="title">To-Do App</span>
-      <p>Backbone <br>
-         1 week
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars3.githubusercontent.com/u/6571282?v=3&s=460" alt="" class="circle">
-      <span class="title">Twitter client</span>
-      <p>Mithril <br>
-         2 days
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars3.githubusercontent.com/u/6374974?v=3&s=460" alt="" class="circle">
-      <span class="title">To-Do App</span>
-      <p>Angular <br>
-         2 days
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars1.githubusercontent.com/u/11216691?v=3&s=460" alt="" class="circle">
-      <span class="title">Twitter client</span>
-      <p>Mithril <br>
-         1 week
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars2.githubusercontent.com/u/7542614?v=3&s=460" alt="" class="circle">
-      <span class="title">Web Historian</span>
-      <p>Backbone <br>
-         4 days
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars3.githubusercontent.com/u/1243451?v=3&s=460" alt="" class="circle">
-      <span class="title">To-Do App</span>
-      <p>Backbone <br>
-         1 week
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
-    </li>
-    <li class="collection-item avatar">
-      <img src="https://avatars3.githubusercontent.com/u/6571282?v=3&s=460" alt="" class="circle">
-      <span class="title">Twitter client</span>
-      <p>Mithril <br>
-         2 days
+    <li class="collection-item avatar" ng-repeat="resource in results">
+      <img  ng-src={{resource.img}} alt="" class="circle" >
+      <span class="title">{{resource.prompts}}</span>
+      <p>{{resource.framework}} <br>
+         {{resource.time}}
       </p>
       <a href="#!" class="secondary-content"><i class="material-icons">join</i></a>
     </li>
