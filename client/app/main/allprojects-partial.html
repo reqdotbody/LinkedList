@@ -1,1 +1,53 @@
-<span>hi</span>
+<style>
+h1 {
+  margin: 0;
+  padding: 0;
+}
+p {
+  margin: 0.8em 0;
+  padding: 0;
+}
+.cards-set {
+  font-size: 0;
+}
+.card {
+  display: inline-block;
+  margin: 8px;
+  width: 380px;
+  min-height: 280px;
+  font-size: 16px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+}
+.card .heading {
+  position: relative;
+  height: 160px;
+  color: #ffffff;
+}
+.card .heading h1 {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  font-size: 24px;
+}
+.card .content {
+  padding: 16px;
+}
+
+</style>
+
+<div class="cards-set">
+  <div class="card">
+    <div class="heading" style="background: url('http://yianbin.qiniudn.com/heading-banner-1.jpg')"></div>
+    <div class="content"><p>This is a text</p></div>
+  </div>
+  <div class="card">
+    <div class="heading" style="background-color: #4285f4"><h1>Hello</h1></div>
+    <div class="content"><p>This is a text</p></div>
+  </div>
+  <div class="card">
+    <div class="heading" style="background-color: #d23f31"></div>
+    <div class="content"><p>This is a text</p></div>
+  </div>
+</div>

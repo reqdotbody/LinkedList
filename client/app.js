@@ -25,10 +25,6 @@ angular.module('app', ['ui.router'])
     templateUrl: './app/main/allprojects-partial.html'
   })
 
-  .state('app.signup', {
-    templateUrl: './app/main/signup-partial.html'
-  })
-
   .state('app.login', {
     templateUrl: './app/main/login-partial.html'
   })
