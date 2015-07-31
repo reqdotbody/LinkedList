@@ -41,5 +41,4 @@ angular.module('allprojects', [])
   }
 
   $scope.getResults();
-  
 });
