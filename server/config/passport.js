@@ -14,8 +14,8 @@ module.exports = function(passport) {
   //   credentials (in this case, an accessToken, refreshToken, and GitHub
   //   profile), and invoke a callback with a user object.
   passport.use(new GithubStrategy({
-  	clientID        : auth.githubAuth.clientID,
-	  clientSecret    : auth.githubAuth.clientSecret,
+  	clientID        : process.env.GITHUB_CLIENT_ID || auth.githubAuth.clientID,
+	  clientSecret    : process.env.GITHUB_CLIENT_SECRET || auth.githubAuth.clientSecret,
 	  callbackURL     : auth.githubAuth.callbackURL,
     },
     function(accessToken, refreshToken, profile, done) {
