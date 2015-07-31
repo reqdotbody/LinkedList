@@ -13,14 +13,13 @@ exports.findUserByGithubId = function(github_id, callback){
   console.log("^github_id");
   knex('users')
     .where('github_id', github_id)
-    .select('github_id')
     .then(function(items){
       console.log("You did it.")
       console.log(items);
       //if the user exists, send it back
       if(items.length > 0){
         console.log("oh ya bebe");
-        callback(null, items);
+        callback(null, items[0]);
       } 
       callback(null);
       //otherwise send nothing

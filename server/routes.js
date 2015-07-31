@@ -22,14 +22,7 @@ module.exports = function(app){
   
   
   app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
-    function (req, res) {
-      //TODO - redirect new user to their projects (in failureRedirect & in here)
-        //if they don't have projects, send them to the view projects page
-        //if they do have a project, send them to their projects page
-      console.log("made it to the callback", req.user);
-      res.redirect('/');
-   });
+    passport.authenticate('github', { successRedirect: '/', failureRedirect: '/login' }));
 
   app.get('/auth/isLoggedIn', function(req, res){
     console.log('in server isLoggedIn endpoint');

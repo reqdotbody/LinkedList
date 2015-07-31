@@ -13,14 +13,18 @@ module.exports = function(passport) {
 	// this happens when a user first visits the site and logs in via github
 	passport.serializeUser(function(user, done){
 		console.log("serializing");
-		console.log(user);
-		return done(null, user);
+		console.log('user in serialize user: ', user);
+
+		done(null, user);
+
 	});
 
 	// used to deserialize the user
 	// this happens on every request so we know which user is logged in.
 	passport.deserializeUser(function(user, done){
-		console.log("deserializing")
+		console.log("deserializing");
+		console.log('deserialize user:', user);
+		
 		User.findUserByGithubId(user.github_id, function(err, user) {
 		  // if user is found within sessions, they can proceed with request
 		  // if not, returns error
@@ -45,67 +49,44 @@ module.exports = function(passport) {
 	function(req, accessToken, refreshToken, profile, done) {
 
 		 req.session.token = accessToken;
+		 req.session.passport = 
 		 req.session.cookie.expires = new Date(Date.now() + 8*60*60*1000);
 
-		 console.log(req.session);
-		 console.log(req.session.token);
-		 console.log(req.session.cookie);
-	   // asynchronous verification, for effect...
-	   process.nextTick(function () {
 
-	  	// console.log("Github sent us an access token, refresh token, and profile");
-	  	// console.log("access token:");
-	  	// console.log(accessToken);
-	  	// console.log("refresh token:");
-	  	// console.log(refreshToken);
-	  	// console.log("profile:");
-	  	// console.log(profile);
+		 console.log('req.session:', req.session);
+		 console.log('req.session.token:', req.session.token);
+		 console.log('req.session.cookie:', req.session.cookie);
+		 console.log('req.isAuthenticated:', req.isAuthenticated());
 
-	  	//Save the profile's username to search through the database with
-	  	var github_id  = profile.id;
-			
-			User.findUserByGithubId(github_id, function(err, user){
-				//if there's an error, stop everything and return that
-				//i.e. an error connecting to the database
-				if(err){
-					console.log("error in passport.js");
-					return done(err);
-				}
+		 var newUser = {};
 
-				//if the user is found (already in the database), then log them in
-				if(user){
-					console.log(user);
-					console.log("user is found, log them in");
-					return done(null, user);
-				}
+		 newUser.github_id          =   profile.id;               //integer
+		 newUser.github_username    =   profile.username;         //string 
+		 newUser.github_displayName =   profile.displayName;      //string
+		 newUser.github_img         =   profile._json.avatar_url; //string
+		 newUser.gihub_email        =   profile.emails[0].value;  //string
+		 newUser.github_location 	  =   profile._json.location;   //string
+		 newUser.github_url         =   profile._json.html_url;   //string
+		
+		 process.nextTick(function () {
+		 		console.log('profile:', profile);
 
-				//if there is no user found with that name, 
-				//then add them to the database, using the info returned from Github.
-				else{
-					console.log("user is not found, add them to the database");
+		    User.findUserByGithubId(profile.id, function(err, user) {
+		       if (err) { return done(err); }
+		       if (user === null) {
+		           User.addGithubUser(newUser, function(err, results){
+	       	   			if(err) throw err;
+	       	   			console.log("successful add to db", results);
+	       	   		});
+	       	   		return done(null, newUser);
+		       } else { //add this else
+		           return done(null, user, {redirectTo:'/'});
+		       }
+			  });
+		 });
 
-					var newUser = {};
+	   
 
-					newUser.github_id          =   profile.id;               //integer
-					newUser.github_username    =   profile.username;         //string 
-					newUser.github_displayName =   profile.displayName;      //string
-					newUser.github_img         =   profile._json.avatar_url; //string
-					newUser.gihub_email        =   profile.emails[0].value;  //string
-					newUser.github_location 	 =   profile._json.location;   //string
-					newUser.github_url         =   profile._json.html_url;   //string
-
-
-					//save new user to the database
-					User.addGithubUser(newUser, function(err, results){
-						if(err) throw err;
-						//if successful, return the new user
-						return done(null, newUser);
-					});
-
-				}
-
-			});
-	  });
 	}));
 };
 
