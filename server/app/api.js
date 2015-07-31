@@ -161,9 +161,6 @@ router.get('/v1/projects/user', function(req, res, next) {
 		})
 })
 
-//GET request to retrieve a specific project
-router.get('v1/')
-
 module.exports = router;
 
 
