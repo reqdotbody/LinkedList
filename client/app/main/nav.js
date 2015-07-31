@@ -11,7 +11,13 @@ angular.module('app')
   //ng-hide='isAuth()' or ng-show='isAuth()' to make certain elements visible only if
   //the user is or is not authenticated.  
   $scope.isAuth = function(){
-    return Auth.isAuthenticated();
-  }
+
+    Auth.isAuthenticated().then(function(result){
+      console.log("Is authenticated result:", result);
+      return result.data;
+    })
+ 
+  }()
+
 
 })

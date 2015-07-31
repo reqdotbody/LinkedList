@@ -27,10 +27,14 @@ module.exports = function(app){
       //TODO - redirect new user to their projects (in failureRedirect & in here)
         //if they don't have projects, send them to the view projects page
         //if they do have a project, send them to their projects page
+      console.log("made it to the callback", req.user);
       res.redirect('/');
    });
 
   app.get('/auth/isLoggedIn', function(req, res){
+    console.log('in server isLoggedIn endpoint');
+    console.log(req.isAuthenticated());
+
     res.status(200).json(req.isAuthenticated());
   })
 
