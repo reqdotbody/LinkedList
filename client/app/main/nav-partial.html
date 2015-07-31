@@ -33,10 +33,16 @@
       <li><a class='modal-trigger secondary-content' href='#helpmodal' modal><i class="material-icons">help_outline</i></a></li>
 =======
       <li><a ui-sref="app.allprojects">Projects</a></li>
+<<<<<<< HEAD
       <li ng-show='isAuth()'><a ui-sref="app.dashboard">Dashboard</a></li>
       <li ng-hide='isAuth()'><a ui-sref="app.login">Login</a></li>
       <li><h1>{{test}}</h1></li>
 >>>>>>> Built auth factory and nav controller. Still buggy.
+=======
+      <li ng-show='loggedin'><a ui-sref="app.dashboard">Dashboard</a></li>
+      <li ng-hide='loggedin'><a ui-sref="app.login">Signup/Login</a></li>
+      <li ng-show='loggedin'><a href="/logout" target="_self">Logout</a></li>
+>>>>>>> Finished authentication. Correctly authenticates user. Added logout button/feature.
     </ul>
   </div>
 </nav>
