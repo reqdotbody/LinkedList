@@ -57,8 +57,8 @@ app.use(passport.session());
 
 
 // Writes all the routes to the server instance in the routes.js file
-routes(app);
 app.use('/api', api);
+routes(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

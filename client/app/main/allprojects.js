@@ -1,7 +1,7 @@
 // this will be nested in the index.js view, it will show all open projects (last 24 hours)
 angular.module('allprojects', [])
 
-.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope){
+.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope, Auth){
   
   $scope.results = [
   {
@@ -39,6 +39,19 @@ angular.module('allprojects', [])
         console.log(data);
       });
   }
-
   $scope.getResults();
+
+  $scope.loggedin = false; 
+  //Uses the Auth factory to check if the user is authenticated.
+  $scope.isAuth = function(){
+    Auth.isAuthenticated().then(function(result){
+      console.log("Is authenticated result:", result);
+      $scope.loggedin = result.data;
+    })
+  }
+
+  $scope.isAuth();
+
+
+
 });
