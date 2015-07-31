@@ -19,7 +19,7 @@ body {
 
 .content-wrapper {
   width: 60%;
-  padding-top: 5%;
+  padding-top: 3%;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -29,7 +29,7 @@ body {
 .logo {
   padding-left: 10px;
   font-family: Roboto-Thin;
-  font-size: 30px;
+  font-size: 40px;
   color: #35fff5;
 }
 
@@ -37,7 +37,6 @@ body {
   background-color: #ed715c;
   font-family: Roboto-Thin;
   font-size: 20px;
-  color: red;
 }
 
 #nav-mobile > li > a {
@@ -46,7 +45,7 @@ body {
 }
 
 #nav-mobile > li > a:hover {
-    color: #35fff5;
+  color: #35fff5;
 } 
 
 /* allprojects */
@@ -96,6 +95,15 @@ body {
 }
 
 /* help */
+.help-wrapper {
+  background-color: #fff;
+  width: 70%;
+  padding: 4%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .help-header {
   font-family: Roboto-Thin;
   font-size: 30px;
