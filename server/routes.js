@@ -22,14 +22,26 @@ module.exports = function(app){
   
   
   app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
-    function (req, res) {
-      //TODO - redirect new user to their projects (in failureRedirect & in here)
-        //if they don't have projects, send them to the view projects page
-        //if they do have a project, send them to their projects page
-
+    passport.authenticate('github', { 
+      failureRedirect: 'http://www.google.com', 
+      failureFlash: true
+    }),function(req,res){
       res.redirect('/');
-   });
+      console.log("req in callback", req);
+      console.log("res in callback", res);
+    });
+
+  app.get('/auth/isLoggedIn', function(req, res){
+    console.log('in server isLoggedIn endpoint');
+    console.log(req.isAuthenticated());
+    res.json(req.isAuthenticated());
+    //res.status(200).json(req.isAuthenticated());
+  })
+
+  app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
 
   //////////////////////////////////////
   //                                  // 
@@ -55,10 +67,10 @@ module.exports = function(app){
   
   // GET REQUESTS
 
-  //Template
-  //app.post('< URL endpoint > ', <relevant handler. relevant method>);
+  // Template
+  // app.post('< URL endpoint > ', <relevant handler. relevant method>);
 
-  //Examples
+  // Examples
 
   // app.get('/tasks', taskHandler.getAll);
   // app.get('/taskInstances', taskHandler.getAllInstances);
@@ -76,5 +88,5 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
     return next();
 
-  res.redirect('/#/signin');
+  res.redirect('/');
 }
