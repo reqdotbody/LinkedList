@@ -12,7 +12,7 @@ module.exports = function(passport) {
 	// used to serialize the user for the session
 	// this happens when a user first visits the site and logs in via github
 	passport.serializeUser(function(user, done){
-		console.log("in serialize");
+		console.log("serializing");
 		console.log(user);
 		return done(null, user);
 	});
@@ -20,7 +20,7 @@ module.exports = function(passport) {
 	// used to deserialize the user
 	// this happens on every request so we know which user is logged in.
 	passport.deserializeUser(function(user, done){
-		console.log("in deserialize")
+		console.log("deserializing")
 		User.findUserByGithubId(user.github_id, function(err, user) {
 		  // if user is found within sessions, they can proceed with request
 		  // if not, returns error
@@ -37,12 +37,19 @@ module.exports = function(passport) {
 	  // pull in our app id and secret from either heroku or our auth.js file.
 	  clientID        : auth.githubAuth.clientID,
 	  clientSecret    : auth.githubAuth.clientSecret,
-	  callbackURL     : auth.githubAuth.callbackURL
+	  callbackURL     : auth.githubAuth.callbackURL,
+	  passReqToCallback: true
 	},
 
 	// github will send back the token and profile
-	function(accessToken, refreshToken, profile, done) {
+	function(req, accessToken, refreshToken, profile, done) {
 
+		 req.session.token = accessToken;
+		 req.session.cookie.expires = new Date(Date.now() + 8*60*60*1000);
+
+		 console.log(req.session);
+		 console.log(req.session.token);
+		 console.log(req.session.cookie);
 	   // asynchronous verification, for effect...
 	   process.nextTick(function () {
 

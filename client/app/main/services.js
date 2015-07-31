@@ -6,15 +6,21 @@ angular.module('app')
     console.log("Inside Auth factory");
     //asks the server, "is the current user logged in?"
     //returns true or false (or error);
-
     return $http({
       method: 'GET',
-      url: 'auth/isLoggedIn',
-      data: ""
+      url: 'auth/isLoggedIn'
     })
-    .then(function(resp){
-      return resp.data;
+    .success(function(resp){
+      return resp;
     })
+    
+  }
+
+  return {
+    isAuthenticated: isAuthenticated
+  }
+
+});
 
 
     // $http.get('auth/isLoggedIn').
@@ -32,10 +38,3 @@ angular.module('app')
     //     console.log(data);
     //     return data;
     //   });
-  }
-
-  return {
-    isAuthenticated: isAuthenticated
-  }
-
-});
