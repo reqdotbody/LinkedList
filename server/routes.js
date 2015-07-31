@@ -38,6 +38,11 @@ module.exports = function(app){
     //res.status(200).json(req.isAuthenticated());
   })
 
+  app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
+
   //////////////////////////////////////
   //                                  // 
   //   ALL OTHER ROUTES               //  
@@ -83,5 +88,5 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
     return next();
 
-  res.redirect('/#/signin');
+  res.redirect('/');
 }
