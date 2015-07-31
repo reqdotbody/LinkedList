@@ -7,12 +7,12 @@ var knex = require('knex')(config[env]);
 
 // USERMODEL FILE. Contains utility functions for all the db user get/requests
 
-exports.findUserByGithubId = function(github_id, callback){
+exports.findUserByGithubId = function(user, callback){
   console.log("Inside the findUserByGithubId query");
-  console.log(github_id);
+  console.log(user);
   console.log("^github_id");
   knex('users')
-    .where('github_id', github_id)
+    .where('github_id', user.github_id)
     .then(function(items){
       console.log("You did it.")
       console.log(items);
@@ -21,7 +21,7 @@ exports.findUserByGithubId = function(github_id, callback){
         console.log("oh ya bebe -- we found that user in the db:", items[0]);
         callback(null, items[0]);
       } 
-      callback(null);
+      callback(400, null);
       //otherwise send nothing
     })
     .catch(function(err){
