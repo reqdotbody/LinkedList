@@ -9,8 +9,7 @@ angular.module('allprojects', [])
   $scope.test = "Hello";
 
   $scope.submit = function() {
-    debugger
-    $http.post('api/v1/submit/project', {"prompt_id" : $scope.promptSelect.id, "framework_id" : $scope.frameworkSelect.id, "duration" : $scope.durationSelect}).
+    $http.post('api/v1/submit/project', {"prompt_id" : $scope.promptSelect, "framework_id" : $scope.frameworkSelect, "duration" : $scope.durationSelect}).
       success(function(data, status, headers, config) {
         console.log(data);
         $scope.getResults();
