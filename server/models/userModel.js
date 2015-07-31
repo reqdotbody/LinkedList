@@ -18,7 +18,7 @@ exports.findUserByGithubId = function(github_id, callback){
       console.log(items);
       //if the user exists, send it back
       if(items.length > 0){
-        console.log("oh ya bebe");
+        console.log("oh ya bebe -- we found that user in the db:", items[0]);
         callback(null, items[0]);
       } 
       callback(null);
