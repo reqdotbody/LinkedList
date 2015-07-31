@@ -32,7 +32,7 @@ router.post('/v1/submit/project', function(req, res, next) {
 //GET request to retrieve all available projects
 router.get('/v1/projects/all/current', function(req, res, next) {
 	knex.select('projects.id AS project_id', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_username AS owner_name', 
-		'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
+		'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description', 'users.github_img')
 		.from('projects')
 		.join('users', 'users.id','projects.owner_id')
 		// .join('users', 'users.id','projects.helper_id')
@@ -146,23 +146,37 @@ router.get('/v1/projects/all/expired', function(req, res, next) {
 
 //GET request to retrieve all the projects associated with a specific user
 router.get('/v1/projects/user', function(req, res, next) {
+		// knex.select('projects.id AS project_id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_id', 'users.github_username', 
+		// 	'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
+		// 	.from('projects')
+		// 	.join('users', function() {
+		// 		this
+		// 		.on('users.id AS ownerId', '=', 'projects.owner_id')
+		// 		.on('users.id AS helperId', '=', 'projects.helper_id');
+		// 	})
+			// .join('prompts', 'projects.prompt_id', '=', 'prompts.id')
+			// .join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
+			// .then(function(items) {
+			// 	res.json(items)
+			// })
+			// .catch(function(err) {
+			// 	console.error(err);
+			// 	res.json(err)
+			// })
+
 		knex.select('projects.id AS project_id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_id', 'users.github_username', 
-			'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
-			.from('projects')
-			.join('users', function() {
-				this
-				.on('users.id AS ownerId', '=', 'projects.owner_id')
-				.on('users.id AS helperId', '=', 'projects.helper_id');
-			})
-			.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
-			.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
-			.then(function(items) {
-				res.json(items)
-			})
-			.catch(function(err) {
-				console.error(err);
-				res.json(err)
-			})
+		 	'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
+		.from('projects')
+		.where(owner_id:req.user.id)
+		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
+		.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
+		.then(function(items) {
+			res.json(items)
+		})
+		.catch(function(err) {
+			console.error(err);
+			res.json(err)
+		})
 	})
 
 	//GET request to retrieve all available prompts
