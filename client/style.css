@@ -51,7 +51,6 @@ body {
 
 /* allprojects */
 .openprojects-header {
-  position: absolute;
   font-family: Roboto-Thin;
   font-size: 30px;
 }
@@ -88,4 +87,16 @@ body {
 
 .joingithublink {
   color: teal;
+}
+
+/* dashboard */
+.dashboard-header {
+  font-family: Roboto-Thin;
+  font-size: 30px;
+}
+
+/* help */
+.help-header {
+  font-family: Roboto-Thin;
+  font-size: 30px;
 }
