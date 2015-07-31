@@ -11,6 +11,10 @@ angular.module('app')
     return $http.get('auth/isLoggedIn').then(function(results){
       //this turns the response from the server (a string)
       //into a boolean value and stores it in authStatus.isLoggedIn
+      console.log("auth results in client-side service: ", results);
+      console.log("auth results.data in client-side service: ", results.data);
+      console.log("auth results.data typeof in client-side service: ", (typeof results.data));
+
       authStatus.isLoggedIn = (results.data === "true");
       
       //Console logs: 
