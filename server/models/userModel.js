@@ -42,11 +42,13 @@ exports.addGithubUser = function(newUser, callback){
       github_location    : newUser.github_location,
       github_url         : newUser.github_url
     })
-    .then(function(insertedUser){
-      callback(null, insertedUser);
+    .then(function(results){
+      console.log("success in db insert. results: ", results)
+      callback(null, newUser);
     })
     .catch(function(err){
-      callback(err, null);
+      console.log(err);
+      callback(400);
     })
     
 }
