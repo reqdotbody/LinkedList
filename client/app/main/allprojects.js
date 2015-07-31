@@ -1,10 +1,14 @@
 angular.module('allprojects', [])
 
-.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope, Auth){
-  $scope.durations = ["2 days", "4 days", "1 week"]
+.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope){
+  $scope.durations = ["1 day", "2 days", "4 days", "1 week"]
+  $scope.promptSelect = null;
+  $scope.frameworkSelect = null;
+  $scope.durationSelect = null;
 
   $scope.submit = function() {
-    $http.post('api/v1/submit/project', {"prompt_id" : prompt.id, "framework_id" : framework.id, "duration" : duration}).
+    debugger
+    $http.post('api/v1/submit/project', {"prompt_id" : $scope.promptSelect.id, "framework_id" : $scope.frameworkSelect.id, "duration" : $scope.durationSelect}).
       success(function(data, status, headers, config) {
         console.log(data);
         $scope.getResults();
@@ -42,8 +46,8 @@ angular.module('allprojects', [])
   $scope.getFrameworks = function(){
     $http.get('api/v1/frameworks').
       success(function(data, status, headers, config) {
-        $scope.frameworks = data;
-        console.log($scope.prompts)
+        $scope.frameworks = data || [{id:1,name:"Angular"}]
+        console.log($scope.frameworks)
       }).
       error(function(data, status, headers, config) {
         console.log('error');
