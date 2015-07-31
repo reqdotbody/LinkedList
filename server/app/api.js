@@ -25,13 +25,13 @@ router.post('/v1/submit/project', function(req, res, next) {
 
 //GET request to retrieve all available projects
 router.get('/v1/projects/all/current', function(req, res, next) {
-	knex.select('id', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_id', 'users.github_username', 
+	knex.select('projects.id as project_id', 'owner_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_id', 'users.github_username', 
 		'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
 		.join('users', function() {
 			this
 			.on('projects.owner_id', '=', 'users.id')
-			.on('projects.helper_id', '=', 'NULL');
+			.on('projects.helper_id', '=', 'users.id');
 		})
 		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
 		.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
