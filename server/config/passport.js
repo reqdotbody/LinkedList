@@ -84,12 +84,12 @@ module.exports = function(passport) {
 				//Add the user!
 				console.log("user doesn't exist... add them!");
 				User.addGithubUser(user, function(err, newUser){
-					console.log("This is the newUser after addGihubuser succeds: ", newUser);
+					console.log("This is the newUser after addGithubuser succeds: ", newUser);
 					if(err){
 						return console.log(err);
 					} else{
 						//Add user to session with their github_id
-						done(null, dbUser.github_id);
+						done(null, user);
 					}
 				});
 			}
