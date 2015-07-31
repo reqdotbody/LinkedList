@@ -16,10 +16,9 @@ var app = express();
 
 
 //Import our app routes and auth config
-var routes = require('./routes.js');
+
 var STATICFILES = path.join(process.env.PWD, '../bower_components');
 var passportConfig = require('./config/passport.js')(passport);
-var api = require('./app/api.js');
 
 //Setup our database
 var knexfile = require('./knexfile.js');
@@ -38,11 +37,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 app.use(session({
   secret: 'sour patch kids',
@@ -55,17 +54,25 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+var authRouter = express.Router();
+var otherRouter = express.Router();
 
 // Writes all the routes to the server instance in the routes.js file
-app.use('/api', api);
-routes(app);
+app.use('/api', otherRouter);
+app.use('/auth', authRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+
+// inject our routers into their respective route files
+require('./app/api.js')(otherRouter);
+require('./routes.js')(authRouter);
+
+ 
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 
 // development error handler

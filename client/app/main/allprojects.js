@@ -1,7 +1,7 @@
 angular.module('allprojects', [])
 
-.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope){
-  $scope.durations = ["1 day", "2 days", "4 days", "1 week"]
+.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope, Auth){
+  $scope.durations = ["2 days", "4 days", "1 week"]
 
   $scope.submit = function() {
     $http.post('api/v1/submit/project', {"prompt_id" : prompt.id, "framework_id" : framework.id, "duration" : duration}).
@@ -50,6 +50,15 @@ angular.module('allprojects', [])
         console.log(data);
       });
   }
+
+  $scope.loggedin = false; 
+  //Uses the Auth factory to check if the user is authenticated.
+  $scope.isAuth = function(){
+    Auth.isAuthenticated();
+    $scope.loggedin = Auth.authStatus.isLoggedIn;
+  }
+
+  $scope.isAuth();
   $scope.getResults();
   $scope.getPrompts();
   $scope.getFrameworks();
