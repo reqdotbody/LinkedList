@@ -3,14 +3,14 @@ angular.module('dashboard', [])
 
 .controller('DashboardController', function($scope, $http, $location, $stateParams, $rootScope) {
 
-	$scope.results = [];
+	$scope.projects = [];
 
 	$scope.getUserProjects = function() {
 	  console.log('api/v1/projects/user');
 	  $http.get('api/v1/projects/user').
 	    success(function(data, status, headers, config) {
 	      $scope.projects = data;
-	      console.log($scope.results);
+	      console.log($scope.projects);
 	    }).
 	    error(function(data, status, headers, config) {
 	    	console.log('error');
