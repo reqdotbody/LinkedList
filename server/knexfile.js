@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'linked_list',
+      database: 'linked_list'
     },
     pool: {
       min: 2,
