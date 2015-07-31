@@ -4,29 +4,24 @@
 
 <div class="input-field" align="center">
 
-  <select class="prompt" ng-model="promptSelect" ng-options="prompt.id for prompt in prompts">
-    <option value="">Create your own project?</option>
+  
+  <select class="prompt" id="form" ng-model="promptSelect" ng-options="prompt.id as prompt.name for prompt in prompts" >
+    <option value="">What do you want to build?</option>
   </select>
 
-
- <!--  <select class="prompt" id="form" ng-model="promptSelect">
-    <option value="" disabled selected>create your own project?</option>
-    <option ng-repeat="prompt in prompts">{{prompt.name}}</option>`
-  </select> -->
-
-  <select class="framework" id="form" ng-model="frameworkSelect">
-    <option value="" disabled selected>pick a framework</option>
-    <option ng-repeat="framework in frameworks">{{framework.name}}</option>
+  <select class="framework" id="form" ng-model="frameworkSelect" ng-options="framework.id as framework.name for framework in frameworks">
+    <option value="">How do you want to build it?</option>
   </select>
 
-  <select class="duration" id="form" ng-model="durationSelect">
-    <option value="" disabled selected>for how long?</option>
-    <option ng-repeat="duration in durations">{{duration}}</option>
+  <select class="duration" id="form" ng-model="durationSelect" ng-options="duration for duration in durations">
+    <option value="">For how long?</option>
   </select>
-  <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="submit()">
+
+  <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="submit()" ng-disabled="!loggedin">
     <i class="material-icons">done</i>
   </button>
 </div>
+
 
 <div class="allprojects-wrapper" >
   <ul class="collection">

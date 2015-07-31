@@ -1,10 +1,12 @@
 angular.module('allprojects', [])
 
-.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope){
+.controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope, Auth){
   $scope.durations = ["1 day", "2 days", "4 days", "1 week"]
+
   $scope.promptSelect = null;
   $scope.frameworkSelect = null;
   $scope.durationSelect = null;
+  $scope.test = "Hello";
 
   $scope.submit = function() {
     debugger
@@ -55,11 +57,15 @@ angular.module('allprojects', [])
       });
   }
 
-  $scope.loggedin = false; 
+  $scope.loggedin = null; 
   //Uses the Auth factory to check if the user is authenticated.
   $scope.isAuth = function(){
-    Auth.isAuthenticated();
-    $scope.loggedin = Auth.authStatus.isLoggedIn;
+
+    Auth.isAuthenticated().then(function(){
+      $scope.loggedin = Auth.authStatus.isLoggedIn;
+      console.log('$scope.loggedin: ', $scope.loggedin);
+    });
+
   }
 
   $scope.isAuth();
