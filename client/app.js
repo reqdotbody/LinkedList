@@ -1,5 +1,5 @@
 angular.module('app', ['ui.router','allprojects'])
-
+ 
 .config(function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/main');
