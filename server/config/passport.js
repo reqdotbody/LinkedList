@@ -9,98 +9,175 @@ module.exports = function(passport) {
 	var auth = process.env.DATABASE_URL ? null : require('./auth.js');
 	var callbackURL ="http://localhost:3000/auth/github/callback"
 	
+  // Use the GitHubStrategy within Passport.
+  //   Strategies in Passport require a `verify` function, which accept
+  //   credentials (in this case, an accessToken, refreshToken, and GitHub
+  //   profile), and invoke a callback with a user object.
+  passport.use(new GithubStrategy({
+  	clientID        : auth.githubAuth.clientID,
+	  clientSecret    : auth.githubAuth.clientSecret,
+	  callbackURL     : auth.githubAuth.callbackURL,
+    },
+    function(accessToken, refreshToken, profile, done) {
+      // asynchronous verification, for effect...
+      process.nextTick(function () {
+
+        // To keep the example simple, the user's GitHub profile is returned to
+        // represent the logged-in user.  In a typical application, you would want
+        // to associate the GitHub account with a user record in your database,
+        // and return that user instead.
+
+        var newUser = {};
+
+        newUser.github_id          =   profile.id;               //integer
+        newUser.github_username    =   profile.username;         //string 
+        newUser.github_displayName =   profile.displayName;      //string
+        newUser.github_img         =   profile._json.avatar_url; //string
+        newUser.gihub_email        =   profile.emails[0].value;  //string
+        newUser.github_location 	  =   profile._json.location;   //string
+        newUser.github_url         =   profile._json.html_url;   //string
+
+
+        return done(null, newUser);
+      });
+    }
+  ));
+
+
+// 	  User.findUserByGithubId(profile.id, function(err, user) {
+// 	  	console.log("WHAT IS USER? HERE: ", user);
+// 	     if (err) return done(err);
+// 	     //if there is no user, then return false
+// 	     if (user) return done(null,false);
+// 	     //otherwise, create it in the db
+// 	     else{
+// 	     	 console.log("The returned user: ", user);
+// 	       User.addGithubUser(newUser, function(err, results){
+// 	 	   			if(err) return done(err);
+// 	 	   			if(!results) return done(null, false, req.flash('loginMessage' , 'User not found.'));
+// 	 	   			else{
+// 		 	   			console.log("successful add to db", results);
+// 		 	   			console.log("user:", user);
+// 		 	   			return done(null, user);
+// 	 	   			}
+// 	 	   		});
+// 	     }
+// 	  });
+
 	// used to serialize the user for the session
 	// this happens when a user first visits the site and logs in via github
 	passport.serializeUser(function(user, done){
-		console.log("in serialize");
-		console.log(user);
-		return done(null, user);
+		console.log("serializing");
+		console.log('user in serialize user: ', user);
+
+		User.findUserByGithubId(user.github_id, function(err, dbUser){
+
+			//if user exists
+			if(dbUser){
+				done(null, dbUser.github_id);
+				console.log("user has been added to session with", dbUser.github_id);
+				console.log("user exists!");
+
+			//user doesn't exist
+			}else{
+
+				//Add the user!
+				console.log("user doesn't exist... add them!");
+				User.addGithubUser(user, function(err, newUser){
+					console.log("This is the newUser after addGithubuser succeds: ", newUser);
+					if(err){
+						return console.log(err);
+					} else{
+						//Add user to session with their github_id
+						done(null, user);
+					}
+				});
+			}
+
+		})
+
 	});
 
 	// used to deserialize the user
 	// this happens on every request so we know which user is logged in.
-	passport.deserializeUser(function(user, done){
-		console.log("in deserialize")
-		User.findUserByGithubId(user.github_id, function(err, user) {
-		  // if user is found within sessions, they can proceed with request
-		  // if not, returns error
-		  return user ? done(null, user) : done(err, null);
-		 });
+	passport.deserializeUser(function(userID, done){
+		console.log("deserializing");
+		console.log('deserialize user:', userID);
+		User.findUserByGithubId(userID, function (error, dbUser) {
+		  if(error){
+		    done(error);
+		  } else {
+		    done(null, dbUser);
+		  }
+		});
+
 
 	});
-
-	// =========================================================================
-	// GITHUB  ================================================================
-	// =========================================================================
-	passport.use(new GithubStrategy({
-
-	  // pull in our app id and secret from either heroku or our auth.js file.
-	  clientID        : auth.githubAuth.clientID,
-	  clientSecret    : auth.githubAuth.clientSecret,
-	  callbackURL     : auth.githubAuth.callbackURL
-	},
-
-	// github will send back the token and profile
-	function(accessToken, refreshToken, profile, done) {
-
-	   // asynchronous verification, for effect...
-	   process.nextTick(function () {
-
-	  	// console.log("Github sent us an access token, refresh token, and profile");
-	  	// console.log("access token:");
-	  	// console.log(accessToken);
-	  	// console.log("refresh token:");
-	  	// console.log(refreshToken);
-	  	// console.log("profile:");
-	  	// console.log(profile);
-
-	  	//Save the profile's username to search through the database with
-	  	var github_id  = profile.id;
-			
-			User.findUserByGithubId(github_id, function(err, user){
-				//if there's an error, stop everything and return that
-				//i.e. an error connecting to the database
-				if(err){
-					console.log("error in passport.js");
-					return done(err);
-				}
-
-				//if the user is found (already in the database), then log them in
-				if(user){
-					console.log(user);
-					console.log("user is found, log them in");
-					return done(null, user);
-				}
-
-				//if there is no user found with that name, 
-				//then add them to the database, using the info returned from Github.
-				else{
-					console.log("user is not found, add them to the database");
-
-					var newUser = {};
-
-					newUser.github_id          =   profile.id;               //integer
-					newUser.github_username    =   profile.username;         //string 
-					newUser.github_displayName =   profile.displayName;      //string
-					newUser.github_img         =   profile._json.avatar_url; //string
-					newUser.gihub_email        =   profile.emails[0].value;  //string
-					newUser.github_location 	 =   profile._json.location;   //string
-					newUser.github_url         =   profile._json.html_url;   //string
+  
 
 
-					//save new user to the database
-					User.addGithubUser(newUser, function(err, results){
-						if(err) throw err;
-						//if successful, return the new user
-						return done(null, newUser);
-					});
 
-				}
 
-			});
-	  });
-	}));
 };
 
 
 
+	// =========================================================================
+	// GITHUB  ================================================================
+	// =========================================================================
+	// passport.use(new GithubStrategy({
+
+	//   // pull in our app id and secret from either heroku or our auth.js file.
+	//   clientID        : auth.githubAuth.clientID,
+	//   clientSecret    : auth.githubAuth.clientSecret,
+	//   callbackURL     : auth.githubAuth.callbackURL,
+	//   passReqToCallback: true
+	// },
+
+	// github will send back the token and profile
+	// function(req, accessToken, refreshToken, profile, done) {
+
+	// 	 req.session.token = accessToken;
+	// 	 req.session.cookie.expires = new Date(Date.now() + 8*60*60*1000);
+
+
+	// 	 console.log('req.session:', req.session);
+	// 	 console.log('req.session.token:', req.session.token);
+	// 	 console.log('req.session.cookie:', req.session.cookie);
+	// 	 console.log('req.isAuthenticated:', req.isAuthenticated());
+
+	// 	 var newUser = {};
+
+	// 	 newUser.github_id          =   profile.id;               //integer
+	// 	 newUser.github_username    =   profile.username;         //string 
+	// 	 newUser.github_displayName =   profile.displayName;      //string
+	// 	 newUser.github_img         =   profile._json.avatar_url; //string
+	// 	 newUser.gihub_email        =   profile.emails[0].value;  //string
+	// 	 newUser.github_location 	  =   profile._json.location;   //string
+	// 	 newUser.github_url         =   profile._json.html_url;   //string
+		
+	// //	 process.nextTick(function () {
+	// 		console.log('profile:', profile);
+
+	// 	  User.findUserByGithubId(profile.id, function(err, user) {
+	// 	  	console.log("WHAT IS USER? HERE: ", user);
+	// 	     if (err) return done(err);
+	// 	     //if there is no user, then return false
+	// 	     if (user) return done(null,false);
+	// 	     //otherwise, create it in the db
+	// 	     else{
+	// 	     	 console.log("The returned user: ", user);
+	// 	       User.addGithubUser(newUser, function(err, results){
+	// 	 	   			if(err) return done(err);
+	// 	 	   			if(!results) return done(null, false, req.flash('loginMessage' , 'User not found.'));
+	// 	 	   			else{
+	// 		 	   			console.log("successful add to db", results);
+	// 		 	   			console.log("user:", user);
+	// 		 	   			return done(null, user);
+	// 	 	   			}
+	// 	 	   		});
+	// 	     }
+	// 	  });
+		// });
+
+	//}));

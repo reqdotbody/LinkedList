@@ -7,22 +7,21 @@ var knex = require('knex')(config[env]);
 
 // USERMODEL FILE. Contains utility functions for all the db user get/requests
 
-exports.findUserByGithubId = function(github_id, callback){
+exports.findUserByGithubId = function(user, callback){
   console.log("Inside the findUserByGithubId query");
-  console.log(github_id);
+  console.log(user);
   console.log("^github_id");
   knex('users')
-    .where('github_id', github_id)
-    .select('github_id')
+    .where('github_id', user.github_id)
     .then(function(items){
       console.log("You did it.")
       console.log(items);
       //if the user exists, send it back
       if(items.length > 0){
-        console.log("oh ya bebe");
-        callback(null, items);
+        console.log("oh ya bebe -- we found that user in the db:", items[0]);
+        callback(null, items[0]);
       } 
-      callback(null);
+      callback(400, null);
       //otherwise send nothing
     })
     .catch(function(err){
@@ -43,11 +42,13 @@ exports.addGithubUser = function(newUser, callback){
       github_location    : newUser.github_location,
       github_url         : newUser.github_url
     })
-    .then(function(insertedUser){
-      callback(null, insertedUser);
+    .then(function(results){
+      console.log("success in db insert. results: ", results)
+      callback(null, newUser);
     })
     .catch(function(err){
-      callback(err, null);
+      console.log(err);
+      callback(400);
     })
     
 }

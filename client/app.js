@@ -1,3 +1,4 @@
+
 angular.module('app', ['ui.router','allprojects'])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -10,6 +11,7 @@ angular.module('app', ['ui.router','allprojects'])
     views: {
       'app.nav': {
         templateUrl: './app/main/nav-partial.html',
+        controller:'navController'
       },
       '': {
         templateUrl: './app/content.html'
@@ -24,10 +26,6 @@ angular.module('app', ['ui.router','allprojects'])
   
   .state('app.login', {
     templateUrl: './app/main/login-partial.html'
-  })
-
-  .state('app.nav', {
-    templateUrl: './app/main/nav-partial.html'
   })
 
   .state('app.dashboard', {
