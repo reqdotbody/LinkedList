@@ -15,14 +15,16 @@
     <div class="modal-content">
       <ul class="collection z-depth 2">
         <li class="collection-item avatar" ng-repeat="project in projects">
+          <img src="{{project.github_img}}" alt="" class="circle">
           <span class="title">{{ project.prompt}}</span>
           <p>{{ project.framework }} <br>
              {{ project.duration }}
           </p>
         </li>
+      </ul>
 
-
-
+      <ul>
+        
         <li class="collection-item avatar">
           <img src="https://avatars3.githubusercontent.com/u/6374974?v=3&s=460" alt="" class="circle">
           <span class="title">To-Do App</span>
