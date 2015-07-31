@@ -29,9 +29,9 @@
   <ul class="collection">
     <li class="collection-item avatar" ng-repeat="resource in results">
       <img  ng-src={{resource.img}} alt="" class="circle" >
-      <span class="title">{{resource.prompts}}</span>
-      <p>{{resource.framework}} <br>
-         {{resource.time}}
+      <span class="title">{{resource.prompt_name}}</span>
+      <p>{{resource.framework_name}} <br>
+         {{resource.duration}}
       </p>
       <button ui-sref="app.dashboard" ng-disabled="!loggedin" class='waves-effect waves-circle waves-light btn-floating secondary-content'><i class="small material-icons">chevron_right</i></button>
     </li>
