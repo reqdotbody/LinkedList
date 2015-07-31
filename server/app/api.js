@@ -129,7 +129,7 @@ module.exports = function(router){
 	})
 
 	//POST request to create a new framework
-	router.post('v1/submit/framework', function(req, res, next) {
+	router.post('/v1/submit/framework', function(req, res, next) {
 		knex('frameworks')
 			.insert({
 				name: req.body.name,
