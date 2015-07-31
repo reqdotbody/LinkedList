@@ -12,7 +12,8 @@ router.post('/v1/submit/project', function(req, res, next) {
 		.insert({
 			owner_id: req.user.github_id,
 			prompt_id: req.body.prompt_id,
-			framework_id: req.body.framework_id
+			framework_id: req.body.framework_id,
+			duration: req.body.duration
 		})
 		.then(function(inserts) {
 			res.json(inserts)
