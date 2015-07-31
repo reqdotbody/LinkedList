@@ -22,7 +22,7 @@ var passportConfig = require('./config/passport.js')(passport);
 
 //Setup our database
 var knexfile = require('./knexfile.js');
-var environment = 'development'
+var environment = process.env.NODE_ENV || 'development';
 var knex = require('knex')(knexfile[environment]);
 knex.migrate.latest([knexfile]);
 
@@ -99,7 +99,6 @@ var server = app.listen(process.env.PORT || 3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
-
+  console.log('The magic happens at http://%s:%s', host, port);
 
 });

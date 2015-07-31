@@ -8,7 +8,7 @@ module.exports = function(app){
 
   // This routes module is exporting a function that will decorate the app (express server instance)
   // with routes.
-  console.log("routes.js");
+  console.log("routes.js is on-board!");
 
   //////////////////////////////////////
   //                                  // 
