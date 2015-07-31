@@ -19,6 +19,7 @@ var app = express();
 var routes = require('./routes.js');
 var STATICFILES = path.join(process.env.PWD, '../bower_components');
 var passportConfig = require('./config/passport.js')(passport);
+var api = require('./app/api.js');
 
 //Setup our database
 var knexfile = require('./knexfile.js');
@@ -57,7 +58,7 @@ app.use(passport.session());
 
 // Writes all the routes to the server instance in the routes.js file
 routes(app);
-
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -24,6 +24,7 @@ angular.module('app', ['ui.router','allprojects'])
   })
   
   .state('app.login', {
+    url: '/login',
     templateUrl: './app/main/login-partial.html'
   })
 

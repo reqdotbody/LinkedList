@@ -23,12 +23,10 @@ module.exports = function(app){
   
   app.get('/auth/github/callback',
     passport.authenticate('github', { 
-      failureRedirect: 'http://www.google.com', 
+      failureRedirect: '/login', 
       failureFlash: true
     }),function(req,res){
       res.redirect('/');
-      console.log("req in callback", req);
-      console.log("res in callback", res);
     });
 
   app.get('/auth/isLoggedIn', function(req, res){
