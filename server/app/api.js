@@ -10,7 +10,7 @@ var knex = require('knex')(config[env]);
 router.post('/v1/submit/project', function(req, res, next) {
 	knex('projects')
 		.insert({
-			owner_id: req.session.ownerID,
+			owner_id: req.user.github_id,
 			prompt_id: req.body.prompt_id,
 			framework_id: req.body.framework_id
 		})
