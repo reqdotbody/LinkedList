@@ -1,10 +1,5 @@
-<<<<<<< HEAD
+
 angular.module('app', ['ui.router','allprojects'])
-=======
-angular.module('app', [
-  'ui.router'
-])
->>>>>>> Built auth factory and nav controller. Still buggy.
 
 .config(function($stateProvider, $urlRouterProvider) {
 
