@@ -14,7 +14,9 @@
 }
 
 body {
-  background-color: #d5d5d5;
+/*  background-color: #d5d5d5;
+*/  background-image: url("./app/assets/hackbattle2.jpg");
+  background-size: 100% auto;
 }
 
 .content-wrapper {
@@ -109,7 +111,45 @@ body {
   font-size: 30px;
 }
 
-.main-header {
+
+#main-header {
   font-family: Roboto-Thin;
-  font-size: 60px;
+  font-size: 55px;
+  color: #26C9BC;
+  text-align: center;
+  opacity: 1;
+}
+
+#main-header2 {
+  font-family: Roboto-Thin;
+  font-size: 55px;
+  color: #ed715c;
+  text-align: center;
+  opacity: 1;
+}
+
+#main-header3 {
+  font-family: Roboto-Thin;
+  font-size: 55px;
+  color: #9962D3;
+  text-align: center;
+  opacity: 1;
+}
+.maindiv {
+  background-color: rgba(0, 0, 0, .675);
+  border-radius: 5px;
+  padding: 1px;
+  
+}
+
+.content-div{
+  background-color: white;
+}
+
+.openprojects-title{
+  background-color: rgba(0, 0, 0, .675);
+  padding: 10px;
+  color: white;
+  font-family: Roboto-Thin;
+
 }
