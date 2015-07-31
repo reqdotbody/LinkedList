@@ -14,7 +14,6 @@ module.exports = function(passport) {
 	passport.serializeUser(function(user, done){
 		console.log("serializing");
 		console.log('user in serialize user: ', user);
-
 		done(null, user);
 
 	});
@@ -24,12 +23,14 @@ module.exports = function(passport) {
 	passport.deserializeUser(function(user, done){
 		console.log("deserializing");
 		console.log('deserialize user:', user);
-		
-		User.findUserByGithubId(user.github_id, function(err, user) {
-		  // if user is found within sessions, they can proceed with request
-		  // if not, returns error
-		  return user ? done(null, user) : done(err, null);
-		 });
+		User.findUserByGithubId(user.github_id, function (error, user) {
+		  if(error){
+		    done(error);
+		  } else {
+		    done(null, user);
+		  }
+		});
+
 
 	});
 
@@ -49,7 +50,6 @@ module.exports = function(passport) {
 	function(req, accessToken, refreshToken, profile, done) {
 
 		 req.session.token = accessToken;
-		 req.session.passport = 
 		 req.session.cookie.expires = new Date(Date.now() + 8*60*60*1000);
 
 
@@ -68,22 +68,30 @@ module.exports = function(passport) {
 		 newUser.github_location 	  =   profile._json.location;   //string
 		 newUser.github_url         =   profile._json.html_url;   //string
 		
-		 process.nextTick(function () {
-		 		console.log('profile:', profile);
+	//	 process.nextTick(function () {
+			console.log('profile:', profile);
 
-		    User.findUserByGithubId(profile.id, function(err, user) {
-		       if (err) { return done(err); }
-		       if (user === null) {
-		           User.addGithubUser(newUser, function(err, results){
-	       	   			if(err) throw err;
-	       	   			console.log("successful add to db", results);
-	       	   		});
-	       	   		return done(null, newUser);
-		       } else { //add this else
-		           return done(null, user, {redirectTo:'/'});
-		       }
-			  });
-		 });
+		  User.findUserByGithubId(profile.id, function(err, user) {
+		  	console.log("WHAT IS USER? HERE: ", user);
+		     if (err) return done(err);
+		     //if there is no user, then return false
+		     if (user) return done(null,false);
+		     //otherwise, create it in the db
+		     else{
+		     	 console.log("The returned user: ", user);
+		       User.addGithubUser(newUser, function(err, results){
+		 	   			if(err) return done(err);
+		 	   			if(!results) return done(null, false, req.flash('loginMessage' , 'User not found.'));
+		 	   			else{
+			 	   			console.log("successful add to db", results);
+			 	   			console.log("user:", user);
+			 	   			return done(null, user);
+		 	   			}
+		 	   		});
+		     }
+		  });
+		// });
+
 
 	   
 
