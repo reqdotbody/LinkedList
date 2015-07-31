@@ -1,7 +1,19 @@
 angular.module('allprojects', [])
 
 .controller('AllProjectsController', function($scope, $http, $window, $location, $stateParams, $rootScope){
-  $scope.durations = ["2 days", "4 days", "1 week"]
+  $scope.durations = ["1 day", "2 days", "4 days", "1 week"]
+
+  $scope.submit = function() {
+    $http.post('api/v1/submit/project', {"prompt_id" : prompt.id, "framework_id" : framework.id, "duration" : duration}).
+      success(function(data, status, headers, config) {
+        console.log(data);
+        $scope.getResults();
+      }).
+      error(function(data, status, headers, config) {
+        console.log('error');
+        console.log(data);
+      });
+  }
 
   $scope.getResults = function(){
     $http.get('api/v1/projects/all/current').

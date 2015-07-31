@@ -1,22 +1,22 @@
 <div class="openprojects-header" align="center">OPEN PROJECTS</div>
 
 <div class="input-field" align="center">
-  <select class="prompt" id="form" ng-model="select.value1">
+  <select class="prompt" id="form" ng-model="prompt-select">
     <option value="" disabled selected>create your own project?</option>
-    <option ng-repeat="prompt in prompts">{{prompt}}</option>
+    <option ng-repeat="prompt in prompts">{{prompt.name}}</option>`
   </select>
 
-  <select class="framework" id="form" ng-model="select.value2">
+  <select class="framework" id="form" ng-model="framework-select">
     <option value="" disabled selected>pick a framework</option>
-    <option ng-repeat="framework in frameworks">{{framework}}</option>
+    <option ng-repeat="framework in frameworks">{{framework.name}}</option>
   </select>
 
-  <select class="duration" id="form" ng-model="select.value3">
+  <select class="duration" id="form" ng-model="duration-select">
     <option value="" disabled selected>for how long?</option>
     <option ng-repeat="duration in durations">{{duration}}</option>
   </select>
 
-  <button class="btn waves-effect waves-light" type="submit" name="action">
+  <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="submit()">
     <i class="material-icons">done</i>
   </button>
 </div>
