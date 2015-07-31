@@ -9,7 +9,7 @@ angular.module('dashboard', [])
 	  console.log('api/v1/projects/user');
 	  $http.get('api/v1/projects/user').
 	    success(function(data, status, headers, config) {
-	      $scope.results = data;
+	      $scope.projects = data;
 	      console.log($scope.results);
 	    }).
 	    error(function(data, status, headers, config) {
