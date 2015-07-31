@@ -1,4 +1,3 @@
-
 angular.module('app', ['ui.router','allprojects'])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -30,5 +29,9 @@ angular.module('app', ['ui.router','allprojects'])
 
   .state('app.dashboard', {
     templateUrl: './app/main/dashboard-partial.html'
+  })
+
+  .state('app.help', {
+    templateUrl: './app/main/help-partial.html'
   })
 });
