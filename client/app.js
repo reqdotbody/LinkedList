@@ -29,7 +29,7 @@ angular.module('app', ['ui.router','allprojects'])
   })
 
   .state('app.dashboard', {
-    templateUrl: './app/main/dashboard-partial.html'
+    templateUrl: './app/main/dashboard-partial.html',
     controller: 'DashboardController'
   })
 
