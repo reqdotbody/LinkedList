@@ -20,10 +20,10 @@ exports.findUserByGithubId = function(user, callback){
       if(items.length > 0){
         console.log("oh ya bebe -- we found that user in the db:", items[0]);
         callback(null, items[0]);
-      }else{
-        callback(400, null);
-      }
+      } else{
+      callback(400, null);
       //otherwise send nothing
+      }
     })
     .catch(function(err){
       console.log("you got an error in findUserByGithubId")
