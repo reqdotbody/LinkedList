@@ -167,7 +167,7 @@ router.get('/v1/projects/user', function(req, res, next) {
 		knex.select('projects.id AS project_id', 'owner_id', 'helper_id', 'prompt_id', 'framework_id', 'created_at', 'duration', 'users.github_id', 'users.github_username', 
 		 	'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
-		.where(owner_id:req.user.id)
+		.where({owner_id:req.user.id})
 		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
 		.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
 		.then(function(items) {
