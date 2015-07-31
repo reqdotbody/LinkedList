@@ -15,6 +15,7 @@
     <div class="modal-content">
       <ul class="collection z-depth 2">
         <li class="collection-item avatar" ng-repeat="project in projects">
+          <img src="{{project.github_img}}" alt="" class="circle">
           <span class="title">{{ project.prompt}}</span>
           <p>{{ project.framework }} <br>
              {{ project.duration }}
