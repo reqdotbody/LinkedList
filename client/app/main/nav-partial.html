@@ -5,7 +5,7 @@
       <li><a ui-sref="app.allprojects"><i class="material-icons">home</i></a></li>
       <li ng-show='loggedin'><a ui-sref="app.dashboard"><i class="material-icons">person</i></a></li>
       <li ng-hide='loggedin'><a ui-sref="app.login"><i class="material-icons">person_outline</i></a></li>
-      <li ng-show='loggedin'><a href="/logout" target="_self"><i class="material-icons">power_settings_new</i></a></li>
+      <li ng-show='loggedin'><a ng-click="logout()"><i class="material-icons">power_settings_new</i></a></li>
       <li><a ui-sref="app.help"><i class="material-icons">help_outline</i></a></li>
     </ul>
   </div>

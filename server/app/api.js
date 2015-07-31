@@ -5,6 +5,27 @@ var config = require('../knexfile.js');
 var env = process.env.NODE_ENV || 'development';
 var knex = require('knex')(config[env]);
 
+module.exports = function(router){
+
+module.exports = function(router){
+	console.log("api.js routes are on board")
+	//POST request to create a project
+	router.post('/v1/submit/project', function(req, res, next) {
+		knex('projects')
+			.insert({
+				owner_id: req.user.github_id,
+				prompt_id: req.body.prompt_id,
+				framework_id: req.body.framework_id,
+				duration: req.body.duration
+			})
+			.then(function(inserts) {
+				res.json(inserts)
+			})
+			.catch(function(err) {
+				console.error(err);
+				res.json(err)
+			})
+	});
 
 //POST request to create a project
 router.post('/v1/submit/project', function(req, res, next) {
@@ -162,7 +183,8 @@ router.get('/v1/projects/user', function(req, res, next) {
 		})
 })
 
-module.exports = router;
+}
+
 
 
 

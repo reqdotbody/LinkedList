@@ -1,11 +1,15 @@
-var passport = require('passport');
+var express = require('express');
+var router = express.Router();
+var session = require('express-session');
+var env = process.env.NODE_ENV || 'development';
 var GitHubStrategy = require('passport-github').Strategy;
-var dashboardHandler = require('./requestHandlers/dashboardHandler.js');
-var mainHandler = require('./requestHandlers/mainHandler.js');
-var projectHandler = require('./requestHandlers/projectHandler.js');
+var router = express.Router();
+var passport = require('passport');
+// var dashboardHandler = require('./requestHandlers/dashboardHandler.js');
+// var mainHandler = require('./requestHandlers/mainHandler.js');
+// var projectHandler = require('./requestHandlers/projectHandler.js');
 
-module.exports = function(app){
-
+module.exports = function(router){
   // This routes module is exporting a function that will decorate the app (express server instance)
   // with routes.
   console.log("routes.js is on-board!");
@@ -16,12 +20,11 @@ module.exports = function(app){
   //                                  //
   //////////////////////////////////////
 
-  app.get('/auth/github', 
+  router.get('/github', 
     passport.authenticate('github', { display: 'popup' }, function(req, res){
   }));
   
-  
-  app.get('/auth/github/callback',
+  router.get('/github/callback',
     passport.authenticate('github', { 
       failureRedirect: '/login', 
       failureFlash: true
@@ -29,17 +32,34 @@ module.exports = function(app){
       res.redirect('/');
     });
 
-  app.get('/auth/isLoggedIn', function(req, res){
+  router.get('/isLoggedIn', function(req, res, next){
     console.log('in server isLoggedIn endpoint');
     console.log(req.isAuthenticated());
+   // res.json(req.isAuthenticated());
     res.json(req.isAuthenticated());
-    //res.status(200).json(req.isAuthenticated());
   })
 
-  app.get('/logout', function(req, res){
+  router.get('/logout', function(req, res, next){
+    console.log('in auth/logout server endpoint')
     req.logout();
-    res.redirect('/');
+    res.end();
+   // res.redirect('/');
   });
+  
+}
+
+
+// route middleware to make sure a user is logged in
+  // not currently being used
+// function isLoggedIn(req, res, next) {
+//   if (req.isAuthenticated())
+//     return next();
+
+//   res.redirect('/');
+// }
+
+
+
 
   //////////////////////////////////////
   //                                  // 
@@ -76,15 +96,4 @@ module.exports = function(app){
   // app.get('/users', userHandler.getRoomies);
   // app.get('/dwellings', dwellingHandler.getUsersDwelling);
 
-  return app;
-}
-
-
-// route middleware to make sure a user is logged in
-  // not currently being used
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-
-  res.redirect('/');
-}
+  //return app;
