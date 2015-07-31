@@ -15,7 +15,7 @@ angular.module('app')
       console.log("auth results.data in client-side service: ", results.data);
       console.log("auth results.data typeof in client-side service: ", (typeof results.data));
 
-      authStatus.isLoggedIn = (results.data === "true");
+      authStatus.isLoggedIn = results.data;
       
       //Console logs: 
       if(authStatus.isLoggedIn === true){
