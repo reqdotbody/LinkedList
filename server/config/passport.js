@@ -7,7 +7,7 @@ module.exports = function(passport) {
 
 	//if in heroku environment, use their variables, if not, use our own from auth.js file.
 	var auth = process.env.DATABASE_URL ? null : require('./auth.js');
-	var callbackURL = process.env.DATABASE_URL ? "http://lynkedlyst.herokuapp.com/auth/github/callback" : "http://localhost:3000/auth/github/callback";
+	var callbackURL = process.env.DATABASE_URL ? "http://.herokuapp.com/auth/github/callback" : "http://127.0.0.1:3000/auth/github/callback"
 	
   // Use the GitHubStrategy within Passport.
   //   Strategies in Passport require a `verify` function, which accept
@@ -31,6 +31,7 @@ module.exports = function(passport) {
         newUser.gihub_email        =   profile.emails[0].value;  //string
         newUser.github_location 	  =   profile._json.location;   //string
         newUser.github_url         =   profile._json.html_url;   //string
+
 
         return done(null, newUser);
       });
