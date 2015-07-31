@@ -22,11 +22,6 @@ module.exports = function(passport) {
       // asynchronous verification, for effect...
       process.nextTick(function () {
 
-        // To keep the example simple, the user's GitHub profile is returned to
-        // represent the logged-in user.  In a typical application, you would want
-        // to associate the GitHub account with a user record in your database,
-        // and return that user instead.
-
         var newUser = {};
 
         newUser.github_id          =   profile.id;               //integer
@@ -42,27 +37,6 @@ module.exports = function(passport) {
       });
     }
   ));
-
-
-// 	  User.findUserByGithubId(profile.id, function(err, user) {
-// 	  	console.log("WHAT IS USER? HERE: ", user);
-// 	     if (err) return done(err);
-// 	     //if there is no user, then return false
-// 	     if (user) return done(null,false);
-// 	     //otherwise, create it in the db
-// 	     else{
-// 	     	 console.log("The returned user: ", user);
-// 	       User.addGithubUser(newUser, function(err, results){
-// 	 	   			if(err) return done(err);
-// 	 	   			if(!results) return done(null, false, req.flash('loginMessage' , 'User not found.'));
-// 	 	   			else{
-// 		 	   			console.log("successful add to db", results);
-// 		 	   			console.log("user:", user);
-// 		 	   			return done(null, user);
-// 	 	   			}
-// 	 	   		});
-// 	     }
-// 	  });
 
 	// used to serialize the user for the session
 	// this happens when a user first visits the site and logs in via github
@@ -113,71 +87,7 @@ module.exports = function(passport) {
 
 
 	});
-  
-
-
-
 
 };
 
 
-
-	// =========================================================================
-	// GITHUB  ================================================================
-	// =========================================================================
-	// passport.use(new GithubStrategy({
-
-	//   // pull in our app id and secret from either heroku or our auth.js file.
-	//   clientID        : auth.githubAuth.clientID,
-	//   clientSecret    : auth.githubAuth.clientSecret,
-	//   callbackURL     : auth.githubAuth.callbackURL,
-	//   passReqToCallback: true
-	// },
-
-	// github will send back the token and profile
-	// function(req, accessToken, refreshToken, profile, done) {
-
-	// 	 req.session.token = accessToken;
-	// 	 req.session.cookie.expires = new Date(Date.now() + 8*60*60*1000);
-
-
-	// 	 console.log('req.session:', req.session);
-	// 	 console.log('req.session.token:', req.session.token);
-	// 	 console.log('req.session.cookie:', req.session.cookie);
-	// 	 console.log('req.isAuthenticated:', req.isAuthenticated());
-
-	// 	 var newUser = {};
-
-	// 	 newUser.github_id          =   profile.id;               //integer
-	// 	 newUser.github_username    =   profile.username;         //string 
-	// 	 newUser.github_displayName =   profile.displayName;      //string
-	// 	 newUser.github_img         =   profile._json.avatar_url; //string
-	// 	 newUser.gihub_email        =   profile.emails[0].value;  //string
-	// 	 newUser.github_location 	  =   profile._json.location;   //string
-	// 	 newUser.github_url         =   profile._json.html_url;   //string
-		
-	// //	 process.nextTick(function () {
-	// 		console.log('profile:', profile);
-
-	// 	  User.findUserByGithubId(profile.id, function(err, user) {
-	// 	  	console.log("WHAT IS USER? HERE: ", user);
-	// 	     if (err) return done(err);
-	// 	     //if there is no user, then return false
-	// 	     if (user) return done(null,false);
-	// 	     //otherwise, create it in the db
-	// 	     else{
-	// 	     	 console.log("The returned user: ", user);
-	// 	       User.addGithubUser(newUser, function(err, results){
-	// 	 	   			if(err) return done(err);
-	// 	 	   			if(!results) return done(null, false, req.flash('loginMessage' , 'User not found.'));
-	// 	 	   			else{
-	// 		 	   			console.log("successful add to db", results);
-	// 		 	   			console.log("user:", user);
-	// 		 	   			return done(null, user);
-	// 	 	   			}
-	// 	 	   		});
-	// 	     }
-	// 	  });
-		// });
-
-	//}));
