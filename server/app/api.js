@@ -168,6 +168,7 @@ router.get('/v1/projects/user', function(req, res, next) {
 		 	'users.github_displayName', 'frameworks.name AS framework_name', 'prompts.name AS prompt_name', 'prompts.description')
 		.from('projects')
 		.where({owner_id:req.user.id})
+		.join('users','users.id','projects.owner_id')
 		.join('prompts', 'projects.prompt_id', '=', 'prompts.id')
 		.join('frameworks', 'projects.framework_id', '=', 'frameworks.id')
 		.then(function(items) {
